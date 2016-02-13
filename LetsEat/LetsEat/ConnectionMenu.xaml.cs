@@ -20,9 +20,11 @@ namespace LetsEat
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class ConnectionMenu : Page
     {
-        public MainPage()
+        //private NavigationHelper navigationHelper { get; set; }
+
+        public ConnectionMenu()
         {
             this.InitializeComponent();
 
@@ -50,7 +52,7 @@ namespace LetsEat
             string email = this.email.Text;
             string password = this.password.Password;
 
-            //NavigationService.Navigate(new);
+            Frame.Navigate(typeof(MainMenu));
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)
@@ -61,6 +63,8 @@ namespace LetsEat
             {
                 password = this.password.Password;
             }
+
+            Frame.Navigate(typeof(MainMenu));
         }
     }
 }

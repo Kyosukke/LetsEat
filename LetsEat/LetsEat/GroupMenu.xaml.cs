@@ -21,11 +21,13 @@ namespace LetsEat
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainMenu : Page
+    public sealed partial class GroupMenu : Page
     {
-        public MainMenu()
+
+        public GroupMenu()
         {
             this.InitializeComponent();
+            groupName.Header = "Epitech";
         }
 
         /// <summary>
@@ -37,24 +39,25 @@ namespace LetsEat
         {
         }
 
-        private void listView_Loaded(object sender, RoutedEventArgs e)
+        private void groupMember_Loaded(object sender, RoutedEventArgs e)
         {
             ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
 
-            listView.ItemsSource = items;
+            groupMember.ItemsSource = items;
 
-            items.Add(new ListItem("Test"));
-            items.Add(new ListItem("Hello"));
+            items.Add(new ListItem("Olivier"));
+            items.Add(new ListItem("Alexandre"));
+            items.Add(new ListItem("Benjamin"));
         }
 
-        private void listView_ItemClick(object sender, ItemClickEventArgs e)
+        private void history_Loaded(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
-        }
+            ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
 
-        private void edit_Click(object sender, RoutedEventArgs e)
-        {
+            history.ItemsSource = items;
 
+            items.Add(new ListItem("McDonalds"));
+            items.Add(new ListItem("Pizza Hut"));
         }
     }
 }
