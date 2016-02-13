@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -21,9 +20,9 @@ namespace LetsEat
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainMenu : Page
+    public sealed partial class DinerMenu : Page
     {
-        public MainMenu()
+        public DinerMenu()
         {
             this.InitializeComponent();
         }
@@ -35,31 +34,6 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-        }
-
-        private void listView_Loaded(object sender, RoutedEventArgs e)
-        {
-            ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
-
-            listView.ItemsSource = items;
-
-            items.Add(new ListItem("Test"));
-            items.Add(new ListItem("Hello"));
-        }
-
-        private void listView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
-        }
-
-        private void edit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void addGroup_Clicked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

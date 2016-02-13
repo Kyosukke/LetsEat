@@ -24,11 +24,12 @@
                             <StaticResource ResourceKey="ListItem"/>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button x:Name="addMember" Content="Add Member" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                    <Button x:Name="addMember" Content="Add Member" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="addMember_Clicked"/>
+                    <Button x:Name="searchDiner" Content="Search DinerPlace" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="searchDinerPlace_Clicked"/>
                 </Grid>
             </PivotItem>
             <PivotItem Header="History">
-                <ListView x:Name="history" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="history_Loaded">
+                <ListView x:Name="history" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Loaded="history_Loaded">
                     <ListView.Resources>
                         <DataTemplate x:Key="ListItem">
                             <Grid Height="50" Width="400">
@@ -42,6 +43,5 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-
     </Grid>
 </Page>

@@ -59,5 +59,15 @@ namespace LetsEat
             items.Add(new ListItem("McDonalds"));
             items.Add(new ListItem("Pizza Hut"));
         }
+
+        private void addMember_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DinerMenu));
+        }
     }
 }
