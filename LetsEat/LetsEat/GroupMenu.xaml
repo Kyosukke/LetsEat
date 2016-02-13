@@ -11,18 +11,21 @@
     <Grid>
         <Pivot Title="Lets Eat">
             <PivotItem x:Name="groupName" Header="Groupname">
-                <ListView x:Name="groupMember" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="groupMember_Loaded">
-                    <ListView.Resources>
-                        <DataTemplate x:Key="ListItem">
-                            <Grid Height="50" Width="400">
-                                <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.Resources>
-                    <ListView.ItemTemplate>
-                        <StaticResource ResourceKey="ListItem"/>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Grid>
+                    <ListView x:Name="groupMember" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="groupMember_Loaded">
+                        <ListView.Resources>
+                            <DataTemplate x:Key="ListItem">
+                                <Grid Height="50" Width="400">
+                                    <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.Resources>
+                        <ListView.ItemTemplate>
+                            <StaticResource ResourceKey="ListItem"/>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button x:Name="addMember" Content="Add Member" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                </Grid>
             </PivotItem>
             <PivotItem Header="History">
                 <ListView x:Name="history" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="history_Loaded">

@@ -11,18 +11,21 @@
     <Grid>
         <Pivot Title="Lets Eat">
             <PivotItem Header="My Groups">
-                <ListView x:Name="listView" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="listView_Loaded" ItemClick="listView_ItemClick">
-                    <ListView.Resources>
-                        <DataTemplate x:Key="ListItem">
-                            <Grid Height="50" Width="400">
-                                <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.Resources>
-                    <ListView.ItemTemplate>
-                        <StaticResource ResourceKey="ListItem"/>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Grid>
+                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Width="400" Loaded="listView_Loaded" ItemClick="listView_ItemClick">
+                        <ListView.Resources>
+                            <DataTemplate x:Key="ListItem">
+                                <Grid Height="50" Width="400">
+                                    <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.Resources>
+                        <ListView.ItemTemplate>
+                            <StaticResource ResourceKey="ListItem"/>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button x:Name="addGroup" Content="Add Group" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                </Grid>
             </PivotItem>
             <PivotItem Header="My Profile">
                 <Grid HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400">
