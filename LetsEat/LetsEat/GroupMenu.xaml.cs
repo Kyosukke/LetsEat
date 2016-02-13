@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -23,7 +24,8 @@ namespace LetsEat
     /// </summary>
     public sealed partial class GroupMenu : Page
     {
-
+        ObservableCollection<ListItem> UserList = new ObservableCollection<ListItem>();
+        ObservableCollection<ListItem> HistoryList = new ObservableCollection<ListItem>();
         public GroupMenu()
         {
             this.InitializeComponent();
@@ -41,23 +43,19 @@ namespace LetsEat
 
         private void groupMember_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
+            groupMember.ItemsSource = UserList;
 
-            groupMember.ItemsSource = items;
-
-            items.Add(new ListItem("Olivier"));
-            items.Add(new ListItem("Alexandre"));
-            items.Add(new ListItem("Benjamin"));
+            UserList.Add(new ListItem("Olivier"));
+            UserList.Add(new ListItem("Alexandre"));
+            UserList.Add(new ListItem("Benjamin"));
         }
 
         private void history_Loaded(object sender, RoutedEventArgs e)
         {
-            ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
+            history.ItemsSource = HistoryList;
 
-            history.ItemsSource = items;
-
-            items.Add(new ListItem("McDonalds"));
-            items.Add(new ListItem("Pizza Hut"));
+            HistoryList.Add(new ListItem("McDonalds"));
+            HistoryList.Add(new ListItem("Pizza Hut"));
         }
 
         private void addMember_Clicked(object sender, RoutedEventArgs e)
@@ -68,6 +66,23 @@ namespace LetsEat
         private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(DinerMenu));
+        }
+
+        private   void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private async void groupName_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            MessageDialog dial = new MessageDialog("Do you want to delete this user?");
+            dial.Commands.Add(new UICommand("no"));
+            dial.Commands.Add(new UICommand("yes"));
+            var result = await dial.ShowAsync();
+            if (result.Label == "yes")
+            {
+                ListItem item = (ListItem)groupMember.SelectedItem;
+                UserList.Remove(item);
+            }
         }
     }
 }
