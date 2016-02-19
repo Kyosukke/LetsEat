@@ -60,12 +60,51 @@ namespace LetsEat
 
         private void addMember_Clicked(object sender, RoutedEventArgs e)
         {
+            CustomPopupControl c = new CustomPopupControl();
+            c.linkParent(popup);
+            popup.IsOpen = true;
 
+            c.popupText.Text = "Choose a username name:";
+            c.popupBox.Visibility = Visibility.Visible;
+
+            c.popupButton.Click += (s, args) =>
+            {
+                // WS: addUserGroup(c.popupBox.Text, ...);
+
+                popup.IsOpen = false;
+            };
         }
 
         private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DinerMenu));
+            // WS: If admin, Send notification to all users
+
+            ListPopupControl c = new ListPopupControl();
+            c.linkParent(popup);
+            popup.IsOpen = true;
+
+            c.listView.Loaded += (s, args) =>
+            {
+                ObservableCollection<ListItem> DinerList = new ObservableCollection<ListItem>();
+
+                c.listView.ItemsSource = DinerList;
+
+                // Fill DinerList with Restaurants found on GoogleMaps
+
+                DinerList.Add(new ListItem("McDonalds"));
+                DinerList.Add(new ListItem("Pizza Hut"));
+            };
+
+            c.listView.ItemClick += (s, args) =>
+            {
+                // Diner choosen;
+            };
+
+            c.chooseDiner.Click += (s, args) =>
+            {
+                popup.IsOpen = false;
+                Frame.Navigate(typeof(DinerMenu)); // , Diner choosen);
+            };
         }
 
         private   void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)

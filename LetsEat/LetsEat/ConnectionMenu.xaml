@@ -31,6 +31,8 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-
+        <Popup Visibility="Visible" x:Name="popup" VerticalAlignment="Center">
+            <local:CustomPopupControl />
+        </Popup>
     </Grid>
 </Page>

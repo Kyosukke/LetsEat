@@ -42,6 +42,9 @@ namespace LetsEat
         private void listView_Loaded(object sender, RoutedEventArgs e)
         {
             listView.ItemsSource = items;
+
+            // WS: getGroupUser();
+
             items.Add(new ListItem("Test"));
             items.Add(new ListItem("Hello"));
         }
@@ -53,15 +56,49 @@ namespace LetsEat
 
         private void edit_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccess = false;
 
+            // WS: editAccount(username, email, password);
+
+            CustomPopupControl c = new CustomPopupControl();
+            c.linkParent(popup);
+            popup.IsOpen = true;
+
+            if (isSuccess)
+            {
+                c.popupText.Text = "Your account has been modified successfully !";
+            }
+            else
+            {
+                c.popupText.Text = "Error: Your information couldn't be modified.";
+            }
+
+            c.popupButton.Click += (s, args) =>
+            {
+                popup.IsOpen = false;
+            };
         }
 
-        private   void addGroup_Clicked(object sender, RoutedEventArgs e)
+        private void addGroup_Clicked(object sender, RoutedEventArgs e)
         {
-            MessageDialog dial = new MessageDialog("Which user do you want to add?");
+            //MessageDialog dial = new MessageDialog("Which user do you want to add ?");
+
+            CustomPopupControl c = new CustomPopupControl();
+            c.linkParent(popup);
+            popup.IsOpen = true;
+
+            c.popupText.Text = "Choose a group name:";
+            c.popupBox.Visibility = Visibility.Visible;
+
+            c.popupButton.Click += (s, args) =>
+            {
+                // WS: addGroup(c.popupBox.Text, ...);
+                popup.IsOpen = false;
+                Frame.Navigate(typeof(GroupMenu));
+            };
         }
 
-         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //ListItem item = (ListItem)listView.SelectedItem;
             //MessageDialog p = new MessageDialog(item.title);

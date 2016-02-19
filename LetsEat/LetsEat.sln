@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LetsEat", "LetsEat\LetsEat.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LetsEat", "LetsEat", "{A377EF14-EE61-49D5-8E0A-E38391BB790A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LetsEat", "LetsEat", "{D1AA5069-5AD8-4147-A0FE-8CDCA6250404}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A208D6F4-4B06-47FB-BE11-33E126D0C483} = {A377EF14-EE61-49D5-8E0A-E38391BB790A}
+		{A208D6F4-4B06-47FB-BE11-33E126D0C483} = {D1AA5069-5AD8-4147-A0FE-8CDCA6250404}
+		{D1AA5069-5AD8-4147-A0FE-8CDCA6250404} = {A377EF14-EE61-49D5-8E0A-E38391BB790A}
 	EndGlobalSection
 EndGlobal

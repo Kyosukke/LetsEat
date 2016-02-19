@@ -52,11 +52,30 @@ namespace LetsEat
             string email = this.email.Text;
             string password = this.password.Password;
 
-            Frame.Navigate(typeof(MainMenu));
+            // WS: connectAccount();
+
+            if (true)// if success
+            {
+                Frame.Navigate(typeof(MainMenu));
+            }
+            else
+            {
+                CustomPopupControl c = new CustomPopupControl();
+                c.linkParent(popup);
+                popup.IsOpen = true;
+
+                c.popupText.Text = "Error: Wrong email/Password. Please try again !";
+
+                c.popupButton.Click += (s, args) =>
+                {
+                    popup.IsOpen = false;
+                };
+            }
         }
 
         private void signIn_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccess = true;
             string email = this.createEmail.Text;
             string password = "";
             if (this.password.Password == this.verifyPassword.Password)
@@ -64,7 +83,28 @@ namespace LetsEat
                 password = this.password.Password;
             }
 
-            Frame.Navigate(typeof(MainMenu));
+            // WS: isSuccess = createAccount();
+
+            CustomPopupControl c = new CustomPopupControl();
+            c.linkParent(popup);
+            popup.IsOpen = true;
+
+            if (isSuccess)
+            {
+                c.popupText.Text = "Created account successfully !";
+            }
+            else
+            {
+                c.popupText.Text = "Sorry, account could not be created ! Use another email.";
+            }
+
+            c.popupButton.Click += (s, args) =>
+            {
+                popup.IsOpen = false;
+                if (isSuccess)
+                    Frame.Navigate(typeof(MainMenu));
+            };
+
         }
     }
 }
