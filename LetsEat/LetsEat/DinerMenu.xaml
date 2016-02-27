@@ -9,7 +9,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="call" Content="Call" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,140,0"/>
+        <TextBlock x:Name="dinerName" FontSize="34" />
+        <Button x:Name="call" Content="Call" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,140,0" Click="call_Clicked"/>
         <Button x:Name="go" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="140,0,0,0"/>
     </Grid>
 </Page>

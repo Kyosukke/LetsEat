@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Popups;
+using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
+using System.Windows;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -35,8 +38,41 @@ namespace LetsEat
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.
         /// This parameter is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var settings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
+            if (settings.Values.ContainsKey("LocationConsent"))
+            {
+                return;
+            }
+            else
+            {
+                MessageDialog result = new MessageDialog("The application wants to access your location. Is that ok ?");
+
+                result.Commands.Add(new UICommand("OK", new UICommandInvokedHandler(CommandHandlers)));
+                result.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(CommandHandlers)));
+
+                await result.ShowAsync();
+            }
+        }
+
+        public void CommandHandlers(IUICommand command)
+        {
+            var Actions = command.Label;
+            var settings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+
+            switch (Actions)
+            {
+                case "OK":
+                    settings.Values["LocationConsent"] = true;
+                    break;
+                case "Cancel":
+                    settings.Values["LocationConsent"] = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void listView_Loaded(object sender, RoutedEventArgs e)

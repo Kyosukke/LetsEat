@@ -25,6 +25,8 @@ namespace LetsEat
         public DinerMenu()
         {
             this.InitializeComponent();
+
+            dinerName.Text = "MY Diner";
         }
 
         /// <summary>
@@ -34,6 +36,11 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+        }
+
+        private void call_Clicked(object sender, RoutedEventArgs e)
+        {
+            Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI("0123456789", dinerName.Text);
         }
     }
 }
