@@ -10,7 +10,7 @@
 
     <Grid>
         <Pivot Title="Lets Eat">
-            <PivotItem Header="My Groups">
+            <PivotItem Header="My Groups" DoubleTapped="PivotItem_DoubleTapped">
                 <Grid>
                     <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Loaded="listView_Loaded" ItemClick="listView_ItemClick">
                         <ListView.Resources>
