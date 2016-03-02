@@ -90,29 +90,21 @@ namespace LetsEat
             Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
         }
 
-        private void edit_Click(object sender, RoutedEventArgs e)
+        private async void edit_Click(object sender, RoutedEventArgs e)
         {
             bool isSuccess = false;
 
-            // WS: editAccount(username, email, password);
-
-            CustomPopupControl c = new CustomPopupControl();
-            c.linkParent(popup);
-            popup.IsOpen = true;
+            MessageDialog result;
 
             if (isSuccess)
             {
-                c.popupText.Text = "Your account has been modified successfully !";
+                result = new MessageDialog("Your account has been modified successfully !");
             }
             else
             {
-                c.popupText.Text = "Error: Your information couldn't be modified.";
+                result = new MessageDialog("Error: Your information couldn't be modified.");
             }
-
-            c.popupButton.Click += (s, args) =>
-            {
-                popup.IsOpen = false;
-            };
+            await result.ShowAsync();
         }
 
         private void addGroup_Clicked(object sender, RoutedEventArgs e)
@@ -136,10 +128,20 @@ namespace LetsEat
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //ListItem item = (ListItem)listView.SelectedItem;
-            //MessageDialog p = new MessageDialog(item.title);
-            //p.ShowAsync();
+            Frame.Navigate(typeof(GroupMenu));
         }
 
+        private async void PivotItem_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            MessageDialog dial = new MessageDialog("Do you want to delete this user?");
+            dial.Commands.Add(new UICommand("no"));
+            dial.Commands.Add(new UICommand("yes"));
+            var result = await dial.ShowAsync();
+            if (result.Label == "yes")
+            {
+                ListItem item = (ListItem)listView.SelectedItem;
+                items.Remove(item);
+            }
+        }
     }
 }

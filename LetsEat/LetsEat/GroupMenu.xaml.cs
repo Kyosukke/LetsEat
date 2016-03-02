@@ -109,5 +109,10 @@ namespace LetsEat
                 UserList.Remove(item);
             }
         }
+
+        private void groupMember_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            
+        }
     }
 }

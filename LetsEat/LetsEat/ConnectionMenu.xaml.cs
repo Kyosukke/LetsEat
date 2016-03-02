@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +23,7 @@ namespace LetsEat
     /// </summary>
     public sealed partial class ConnectionMenu : Page
     {
+        MessageDialog dial;
         //private NavigationHelper navigationHelper { get; set; }
 
         public ConnectionMenu()
@@ -47,33 +49,27 @@ namespace LetsEat
             // this event is handled for you.
         }
 
-        private void connect_Click(object sender, RoutedEventArgs e)
+        private  async void connect_Click(object sender, RoutedEventArgs e)
         {
             string email = this.email.Text;
             string password = this.password.Password;
 
             // WS: connectAccount();
-
-            if (true)// if success
+            bool test = true;
+            if (test)// if success
             {
+                dial = new MessageDialog("Connect success");
+                await dial.ShowAsync();
                 Frame.Navigate(typeof(MainMenu));
             }
             else
             {
-                CustomPopupControl c = new CustomPopupControl();
-                c.linkParent(popup);
-                popup.IsOpen = true;
-
-                c.popupText.Text = "Error: Wrong email/Password. Please try again !";
-
-                c.popupButton.Click += (s, args) =>
-                {
-                    popup.IsOpen = false;
-                };
+                dial = new MessageDialog("Error: Wrong email/Password. Please try again !");
+                await dial.ShowAsync();
             }
         }
 
-        private void signIn_Click(object sender, RoutedEventArgs e)
+        private  async void signIn_Click(object sender, RoutedEventArgs e)
         {
             bool isSuccess = true;
             string email = this.createEmail.Text;
@@ -84,27 +80,15 @@ namespace LetsEat
             }
 
             // WS: isSuccess = createAccount();
-
-            CustomPopupControl c = new CustomPopupControl();
-            c.linkParent(popup);
-            popup.IsOpen = true;
-
             if (isSuccess)
             {
-                c.popupText.Text = "Created account successfully !";
+                dial = new MessageDialog("Created account successfully !");
             }
             else
             {
-                c.popupText.Text = "Sorry, account could not be created ! Use another email.";
+                dial = new MessageDialog("Sorry, account could not be created ! Use another email.");
             }
-
-            c.popupButton.Click += (s, args) =>
-            {
-                popup.IsOpen = false;
-                if (isSuccess)
-                    Frame.Navigate(typeof(MainMenu));
-            };
-
+            await dial.ShowAsync();
         }
     }
 }
