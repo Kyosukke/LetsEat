@@ -23,7 +23,7 @@ namespace LetsEat
     /// </summary>
     public sealed partial class ConnectionMenu : Page
     {
-        MessageDialog dial;
+         MessageDialog dial;
         //private NavigationHelper navigationHelper { get; set; }
 
         public ConnectionMenu()

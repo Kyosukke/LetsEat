@@ -28,6 +28,7 @@ namespace LetsEat
     {
         ObservableCollection<ListItem> UserList = new ObservableCollection<ListItem>();
         ObservableCollection<ListItem> HistoryList = new ObservableCollection<ListItem>();
+        MessageDialog dial;
         public GroupMenu()
         {
             this.InitializeComponent();
@@ -61,7 +62,7 @@ namespace LetsEat
             HistoryList.Add(new ListItem("Pizza Hut"));
         }
 
-        private void addMember_Clicked(object sender, RoutedEventArgs e)
+        private async void addMember_Clicked(object sender, RoutedEventArgs e)
         {
             CustomPopupControl c = new CustomPopupControl();
             c.linkParent(popup);
@@ -73,17 +74,17 @@ namespace LetsEat
             c.popupButton.Click += async (s, args) =>
             {
                 // WS: addUserGroup(c.popupBox.Text, ...);
-                if (false)//UserList != null)
+                if (UserList.Count() > 0)//UserList != null)
                 {
+                    dial = new MessageDialog("Add user success");
+                    await dial.ShowAsync();
                     UserList.Add(new ListItem(c.popupBox.Text));
                 }
                 else
                 {
-                    MessageDialog dial = new MessageDialog("Error: User not found.");
-                    dial.Commands.Add(new UICommand("OK"));
-                    var result = await dial.ShowAsync();
+                    dial = new MessageDialog("Error: User not found.");
+                    await dial.ShowAsync();
                 }
-
                 popup.IsOpen = false;
             };
         }
@@ -93,7 +94,7 @@ namespace LetsEat
             Frame.Navigate(typeof(DinerListMenu), groupName.Header);
         }
 
-        private   void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
 
@@ -112,7 +113,7 @@ namespace LetsEat
 
         private void groupMember_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            
+
         }
     }
 }
