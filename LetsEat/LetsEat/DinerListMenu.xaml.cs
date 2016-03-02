@@ -65,6 +65,7 @@ namespace LetsEat
                 }
                 else
                 {
+
                     // Fill DinerList with Restaurants found on GoogleMaps
                     dinerInfo.Add(new ListItem("McDonalds"));
                     dinerInfo.Add(new ListItem("Pizza Hut"));
