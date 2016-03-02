@@ -41,6 +41,7 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            groupName.Header = e.Parameter as string;
         }
 
         private void groupMember_Loaded(object sender, RoutedEventArgs e)
@@ -69,9 +70,19 @@ namespace LetsEat
             c.popupText.Text = "Choose a username name:";
             c.popupBox.Visibility = Visibility.Visible;
 
-            c.popupButton.Click += (s, args) =>
+            c.popupButton.Click += async (s, args) =>
             {
                 // WS: addUserGroup(c.popupBox.Text, ...);
+                if (false)//UserList != null)
+                {
+                    UserList.Add(new ListItem(c.popupBox.Text));
+                }
+                else
+                {
+                    MessageDialog dial = new MessageDialog("Error: User not found.");
+                    dial.Commands.Add(new UICommand("OK"));
+                    var result = await dial.ShowAsync();
+                }
 
                 popup.IsOpen = false;
             };
@@ -79,7 +90,7 @@ namespace LetsEat
 
         private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DinerListMenu));
+            Frame.Navigate(typeof(DinerListMenu), groupName.Header);
         }
 
         private   void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)

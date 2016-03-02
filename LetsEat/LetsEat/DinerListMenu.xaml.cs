@@ -26,6 +26,7 @@ namespace LetsEat
     public sealed partial class DinerListMenu : Page
     {
         ObservableCollection<ListItem> dinerInfo = new ObservableCollection<ListItem>();
+        string groupName;
 
         public DinerListMenu()
         {
@@ -79,6 +80,7 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            groupName = e.Parameter as string;
         }
 
         private void chooseDiner_Clicked(object sender, RoutedEventArgs e)

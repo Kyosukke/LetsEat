@@ -130,7 +130,7 @@ namespace LetsEat
             {
                 // WS: addGroup(c.popupBox.Text, ...);
                 popup.IsOpen = false;
-                Frame.Navigate(typeof(GroupMenu));
+                Frame.Navigate(typeof(GroupMenu), c.popupBox.Text);
             };
         }
 
