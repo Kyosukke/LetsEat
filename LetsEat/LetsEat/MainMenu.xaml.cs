@@ -88,6 +88,7 @@ namespace LetsEat
         private void listView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
+           
         }
 
         private async void edit_Click(object sender, RoutedEventArgs e)
@@ -126,12 +127,14 @@ namespace LetsEat
             };
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MessageDialog dial = new MessageDialog("Do you want to delete this user?");
+            await dial.ShowAsync();
             Frame.Navigate(typeof(GroupMenu));
         }
 
-        private async void PivotItem_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             MessageDialog dial = new MessageDialog("Do you want to delete this user?");
             dial.Commands.Add(new UICommand("no"));

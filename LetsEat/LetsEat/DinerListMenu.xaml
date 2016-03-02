@@ -10,7 +10,7 @@
 
     <Grid>
         <TextBlock x:Name="userPosition"/>
-        <ListView x:Name="dinerList" Margin="0,50,0,60" Loaded="dinerList_Loaded">
+        <ListView x:Name="dinerList" Margin="0,50,0,0" Loaded="dinerList_Loaded" SelectionChanged="dinerList_SelectionChanged">
             <ListView.Resources>
                 <DataTemplate x:Key="ListItem">
                     <Grid Height="50" Width="400">
@@ -22,7 +22,7 @@
                 <StaticResource ResourceKey="ListItem"/>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="chooseDiner" Content="Choose Restaurant" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="chooseDiner_Clicked"/>
-
+        <!--<Button x:Name="chooseDiner" Content="Choose Restaurant" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="chooseDiner_Clicked"/>-->
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="119,10,0,0" TextWrapping="Wrap" Text="List restaurant" VerticalAlignment="Top" Height="35" Width="181" FontSize="26.667"/>
     </Grid>
 </Page>

@@ -33,7 +33,6 @@ namespace LetsEat
             this.InitializeComponent();
 
             FindDinerList();
-
         }
 
         async void FindDinerList()
@@ -83,10 +82,10 @@ namespace LetsEat
             groupName = e.Parameter as string;
         }
 
-        private void chooseDiner_Clicked(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DinerMenu));
-        }
+        //private void chooseDiner_Clicked(object sender, RoutedEventArgs e)
+        //{
+        
+        //}
 
         private void dinerList_Loaded(object sender, RoutedEventArgs e)
         {
@@ -94,6 +93,11 @@ namespace LetsEat
             dinerList.ItemsSource = dinerInfo;
 
             dinerInfo.Add(new ListItem("HELLO THERE"));
+        }
+
+        private void dinerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Frame.Navigate(typeof(DinerMenu), dinerList.SelectedValue);
         }
     }
 }
