@@ -28,9 +28,12 @@ namespace LetsEat
     public sealed partial class MainMenu : Page
     {
         ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
+
         public MainMenu()
         {
             this.InitializeComponent();
+
+            updateProfile();
         }
 
         /// <summary>
@@ -75,20 +78,44 @@ namespace LetsEat
             }
         }
 
-        private void listView_Loaded(object sender, RoutedEventArgs e)
+        public async void updateProfile()
+        {
+            ProfilVM user = new ProfilVM();
+
+            user.email = GlobalData.email;
+
+            ProfilRP res = await ApiCall.MakeCall("profil", user);
+
+            if (res.success)
+            {
+                username.Text = res.user.pseudo;
+                email.Text = res.user.email;
+                GlobalData.id = res.user._id;
+            }
+        }
+
+        private async void listView_Loaded(object sender, RoutedEventArgs e)
         {
             listView.ItemsSource = items;
 
-            // WS: getGroupUser();
+            GroupVM group = new GroupVM();
 
-            items.Add(new ListItem("Test"));
-            items.Add(new ListItem("Hello"));
+            group.email = GlobalData.email;
+
+            //GroupRP res = await ApiCall.MakeCall("myGroups", group);
+
+            //if (res.success)
+            //{
+            //    foreach (Group g in res.groups)
+            //    {
+            //        items.Add(new ListItem(g.name));
+            //    }
+            //}
         }
 
         private void listView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
-           
         }
 
         private async void edit_Click(object sender, RoutedEventArgs e)
@@ -96,6 +123,14 @@ namespace LetsEat
             bool isSuccess = false;
 
             MessageDialog result;
+
+            if (username.Text != "" && email.Text != "" && password.Password != "")
+            {
+                UserVM user = new UserVM(email.Text, password.Password, username.Text);
+                UserRP res = await ApiCall.MakeCall("editProfil", user);
+
+                isSuccess = res.success;
+            }
 
             if (isSuccess)
             {
@@ -110,20 +145,39 @@ namespace LetsEat
 
         private void addGroup_Clicked(object sender, RoutedEventArgs e)
         {
-            //MessageDialog dial = new MessageDialog("Which user do you want to add ?");
-
             CustomPopupControl c = new CustomPopupControl();
             c.linkParent(popup);
             popup.IsOpen = true;
+            MessageDialog result;
 
             c.popupText.Text = "Choose a group name:";
             c.popupBox.Visibility = Visibility.Visible;
 
-            c.popupButton.Click += (s, args) =>
+            c.popupButton.Click += async (s, args) =>
             {
-                // WS: addGroup(c.popupBox.Text, ...);
-                popup.IsOpen = false;
-                Frame.Navigate(typeof(GroupMenu), c.popupBox.Text);
+                CreateGroupVM group = new CreateGroupVM();
+
+                if (c.popupBox.Text != "")
+                {
+                    group.email = GlobalData.email;
+                    group.name = c.popupBox.Text;
+
+                    CreateGroupRP res = await ApiCall.MakeCall("createGroup", group);
+
+                    if (res.success)
+                    {
+                        result = new MessageDialog("Your group was created successfully !");
+                        await result.ShowAsync();
+                    }
+
+                    popup.IsOpen = false;
+                    Frame.Navigate(typeof(GroupMenu), c.popupBox.Text);
+                }
+                else
+                {
+                    result = new MessageDialog("Error: Your information couldn't be modified.");
+                    await result.ShowAsync();
+                }
             };
         }
 

@@ -83,6 +83,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateGroupVM.cs" />
     <Compile Include="CustomPopupControl.xaml.cs">
       <DependentUpon>CustomPopupControl.xaml</DependentUpon>
     </Compile>
@@ -93,9 +94,13 @@
       <DependentUpon>DinerMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="DinerRetriever.cs" />
+    <Compile Include="EditProfilVM.cs" />
+    <Compile Include="GlobalData.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="GroupMenu.xaml.cs">
       <DependentUpon>GroupMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GroupVM.cs" />
     <Compile Include="ListItem.cs" />
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -103,7 +108,10 @@
     <Compile Include="ConnectionMenu.xaml.cs">
       <DependentUpon>ConnectionMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MemberVM.cs" />
+    <Compile Include="ProfilVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="UserVM.cs" />
   </ItemGroup>
   <ItemGroup>

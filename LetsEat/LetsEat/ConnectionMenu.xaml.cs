@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -54,18 +55,22 @@ namespace LetsEat
             bool isSuccess = false;
             string email = this.email.Text;
             string password = this.password.Password;
+            UserRP res = null;
 
             if (email != "" && password != "")
             {
                 UserVM user = new UserVM(email, password, email.Split(new[] { '@' })[0]);
-                UserRP res = await ApiCall.MakeCall("connect", user);
+                res = await ApiCall.MakeCall("connect", user);
 
                 isSuccess = res.success;
             }
 
             if (isSuccess)
             {
-                dial = new MessageDialog("Connection success !");
+                GlobalData.email = email;
+                GlobalData.token = (res == null) ? ("") : (res.token);
+
+                dial = new MessageDialog("Connection success !" + GlobalData.token + "haha");
                 await dial.ShowAsync();
                 Frame.Navigate(typeof(MainMenu));
             }
