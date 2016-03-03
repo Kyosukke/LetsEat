@@ -23,7 +23,7 @@ namespace LetsEat
     /// </summary>
     public sealed partial class ConnectionMenu : Page
     {
-         MessageDialog dial;
+        MessageDialog dial;
         //private NavigationHelper navigationHelper { get; set; }
 
         public ConnectionMenu()
@@ -49,25 +49,23 @@ namespace LetsEat
             // this event is handled for you.
         }
 
-        private  async void connect_Click(object sender, RoutedEventArgs e)
+        private async void connect_Click(object sender, RoutedEventArgs e)
         {
+            bool isSuccess = false;
             string email = this.email.Text;
             string password = this.password.Password;
 
-            // WS: connectAccount();
-
-            UserVM user = new UserVM();
-
-            user.email = "email";
-            user.password = "password";
-            user.pseudo = "test";
-
-            UserRP test = await ApiCall.MakeCall("subscribe", user);
-
-
-            if (test.id > 0)// if success
+            if (email != "" && password != "")
             {
-                dial = new MessageDialog("Connect success");
+                UserVM user = new UserVM(email, password, email.Split(new[] { '@' })[0]);
+                UserRP res = await ApiCall.MakeCall("connect", user);
+
+                isSuccess = res.success;
+            }
+
+            if (isSuccess)
+            {
+                dial = new MessageDialog("Connection success !");
                 await dial.ShowAsync();
                 Frame.Navigate(typeof(MainMenu));
             }
@@ -78,17 +76,24 @@ namespace LetsEat
             }
         }
 
-        private  async void signIn_Click(object sender, RoutedEventArgs e)
+        private async void signIn_Click(object sender, RoutedEventArgs e)
         {
-            bool isSuccess = true;
-            string email = this.createEmail.Text;
+            bool isSuccess = false;
+            string email = createEmail.Text;
             string password = "";
-            if (this.password.Password == this.verifyPassword.Password)
+            if (createPassword.Password == verifyPassword.Password)
             {
-                password = this.password.Password;
+                password = createPassword.Password;
             }
 
-            // WS: isSuccess = createAccount();
+            if (email != "" && password != "")
+            {
+                UserVM user = new UserVM(email, password, email.Split(new[] { '@' })[0]);
+                UserRP res = await ApiCall.MakeCall("subscribe", user);
+
+                isSuccess = res.success;
+            }
+
             if (isSuccess)
             {
                 dial = new MessageDialog("Created account successfully !");
