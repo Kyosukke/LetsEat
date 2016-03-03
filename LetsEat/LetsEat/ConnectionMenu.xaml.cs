@@ -55,8 +55,17 @@ namespace LetsEat
             string password = this.password.Password;
 
             // WS: connectAccount();
-            bool test = true;
-            if (test)// if success
+
+            UserVM user = new UserVM();
+
+            user.email = "email";
+            user.password = "password";
+            user.pseudo = "test";
+
+            UserRP test = await ApiCall.MakeCall("subscribe", user);
+
+
+            if (test.id > 0)// if success
             {
                 dial = new MessageDialog("Connect success");
                 await dial.ShowAsync();
