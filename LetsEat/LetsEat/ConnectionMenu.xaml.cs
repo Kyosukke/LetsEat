@@ -70,7 +70,7 @@ namespace LetsEat
                 GlobalData.email = email;
                 GlobalData.token = (res == null) ? ("") : (res.token);
 
-                dial = new MessageDialog("Connection success !" + GlobalData.token + "haha");
+                dial = new MessageDialog("Connection success !");
                 await dial.ShowAsync();
                 Frame.Navigate(typeof(MainMenu));
             }
