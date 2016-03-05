@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Popups;
 using Windows.Devices.Geolocation;
+using LetsEat.Class;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -32,7 +33,6 @@ namespace LetsEat
         public GroupMenu()
         {
             this.InitializeComponent();
-            groupName.Header = "Epitech";
         }
 
         /// <summary>
@@ -49,20 +49,40 @@ namespace LetsEat
         {
             groupMember.ItemsSource = UserList;
 
-            UserList.Add(new ListItem("Olivier"));
-            UserList.Add(new ListItem("Alexandre"));
-            UserList.Add(new ListItem("Benjamin"));
+            GroupVM group = new GroupVM();
+
+            group.email = GlobalData.email;
+
+            //GroupRP res = await ApiCall.MakeCall("myGroups", group);
+
+            //if (res.success)
+            //{
+            //    foreach (Group g in res.groups)
+            //    {
+            //        items.Add(new ListItem(g.name));
+            //    }
+            //}
         }
 
-        private void history_Loaded(object sender, RoutedEventArgs e)
+        private async void history_Loaded(object sender, RoutedEventArgs e)
         {
             history.ItemsSource = HistoryList;
 
-            HistoryList.Add(new ListItem("McDonalds"));
-            HistoryList.Add(new ListItem("Pizza Hut"));
+            GetRestaurantVM diner = new GetRestaurantVM();
+
+            diner.groupeID = "test";
+            GetRestaurantRP res = await ApiCall.MakeCall("getRestaurant", diner);
+
+            if (res.success && res.history.FirstOrDefault() != null)
+            {
+                foreach (Restauran r in res.history.FirstOrDefault().restaurants)
+                {
+                    HistoryList.Add(new ListItem(r.name));
+                }
+            }
         }
 
-        private async void addMember_Clicked(object sender, RoutedEventArgs e)
+        private void addMember_Clicked(object sender, RoutedEventArgs e)
         {
             CustomPopupControl c = new CustomPopupControl();
             c.linkParent(popup);
@@ -73,8 +93,14 @@ namespace LetsEat
 
             c.popupButton.Click += async (s, args) =>
             {
-                // WS: addUserGroup(c.popupBox.Text, ...);
-                if (UserList.Count() > 0)//UserList != null)
+                AddMemberVM service = new AddMemberVM();
+
+                service.email = c.popupBox.Text;
+                service.groupeID = "test";
+
+                AddMemberRP res = await ApiCall.MakeCall("addMember", service);
+
+                if (res.success)
                 {
                     dial = new MessageDialog("Add user success");
                     await dial.ShowAsync();

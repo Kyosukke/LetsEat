@@ -99,6 +99,5 @@ namespace LetsEat
         {
             Frame.Navigate(typeof(DinerMenu), dinerList.SelectedValue);
         }
-
     }
 }
