@@ -23,5 +23,6 @@ namespace LetsEat
     class UserRP
     {
         public bool success { get; set; }
+        public string token { get; set; }
     }
 }
