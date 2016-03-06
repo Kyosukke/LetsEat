@@ -11,7 +11,7 @@
     <Grid>
         <!--<TextBlock x:Name="dinerName" FontSize="34" />-->
         <Button x:Name="call" Content="Call" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,140,0" Click="call_Clicked"/>
-        <Button x:Name="go" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="140,0,0,0"/>
+        <Button x:Name="go" Content="Go" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="140,0,0,0" Click="go_Click"/>
         <TextBlock TextAlignment="Center" x:Name="restaurantName" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="text" VerticalAlignment="Top" Height="35" Width="380" FontSize="13.333" RenderTransformOrigin="0.533,0.469"/>
     </Grid>
 </Page>
