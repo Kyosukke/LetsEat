@@ -20,6 +20,7 @@ using Windows.UI.Popups;
 using Windows.Services.Maps;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
+using Windows.UI.Xaml.Controls.Maps;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -119,11 +120,14 @@ namespace LetsEat
             {
                 myMap.Center = result.Locations[0].Point;
                 myMap.ZoomLevel = 16;
+
                 Ellipse myCircle = new Ellipse();
                 myCircle.Fill = new SolidColorBrush(Colors.Blue);
                 myCircle.Height = 20;
                 myCircle.Width = 20;
                 myCircle.Opacity = 50;
+                myMap.Children.Add(myCircle);
+                MapControl.SetLocation(myCircle, result.Locations[0].Point);
             }
             this.navigationHelper.OnNavigatedTo(e);
         }
