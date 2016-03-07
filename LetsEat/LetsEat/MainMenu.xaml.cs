@@ -102,15 +102,15 @@ namespace LetsEat
 
             group.email = GlobalData.email;
 
-            //GroupRP res = await ApiCall.MakeCall("myGroups", group);
+            GroupRP res = await ApiCall.MakeCall("myGroups", group);
 
-            //if (res.success)
-            //{
-            //    foreach (Group g in res.groups)
-            //    {
-            //        items.Add(new ListItem(g.name));
-            //    }
-            //}
+            if (res.success)
+            {
+                foreach (Group g in res.groups)
+                {
+                    items.Add(new ListItem(g.name));
+                }
+            }
         }
 
         private void listView_ItemClick(object sender, ItemClickEventArgs e)
@@ -127,6 +127,7 @@ namespace LetsEat
             if (username.Text != "" && email.Text != "" && password.Password != "")
             {
                 UserVM user = new UserVM(email.Text, password.Password, username.Text);
+                user._id = GlobalData.id;
                 UserRP res = await ApiCall.MakeCall("editProfil", user);
 
                 isSuccess = res.success;

@@ -8,9 +8,12 @@ namespace LetsEat
 {
     class UserVM
     {
+        public string _id { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public string pseudo { get; set; }
+
+        public UserVM() {}
 
         public UserVM(string email, string password, string pseudo)
         {

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
 using LetsEat.Class;
+using Windows.UI.Popups;
 
 namespace LetsEat
 {
@@ -15,6 +16,9 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
+
+                if (method.Equals("editProfil"))
+                    client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
@@ -36,8 +40,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 
@@ -58,8 +62,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 
@@ -80,8 +84,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 
@@ -102,8 +106,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 
@@ -124,8 +128,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 
@@ -146,8 +150,8 @@ namespace LetsEat
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:3000/");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
 

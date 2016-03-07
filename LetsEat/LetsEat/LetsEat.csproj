@@ -87,6 +87,7 @@
     <Compile Include="Class\CreateGroupVM.cs" />
     <Compile Include="Class\GetRestaurantVM.cs" />
     <Compile Include="Class\History.cs" />
+    <Compile Include="Class\Member.cs" />
     <Compile Include="CustomPopupControl.xaml.cs">
       <DependentUpon>CustomPopupControl.xaml</DependentUpon>
     </Compile>

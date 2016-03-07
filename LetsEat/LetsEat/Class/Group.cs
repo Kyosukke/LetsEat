@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LetsEat.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,10 @@ namespace LetsEat
 {
     class Group
     {
+        public string _id { get; set; }
         public string name { get; set; }
         public string admin { get; set; }
-        public List<string> members { get; set; }
+        public int __v { get; set; }
+        public List<Member> members { get; set; }
     }
 }
