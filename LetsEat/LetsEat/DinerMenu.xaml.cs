@@ -36,12 +36,18 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            restaurantName.Text = e.Parameter as string;
+            ListItem t = (ListItem)e.Parameter;
+            restaurantName.Text = t.title;
         }
 
         private void call_Clicked(object sender, RoutedEventArgs e)
         {
             Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI("0123456789", restaurantName.Text);
+        }
+
+        private void go_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Map), restaurantName.Text);
         }
     }
 }

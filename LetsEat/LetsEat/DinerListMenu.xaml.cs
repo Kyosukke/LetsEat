@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Services.Maps;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -32,72 +34,69 @@ namespace LetsEat
         {
             this.InitializeComponent();
 
-            FindDinerList();
+           FindDinerList();
+      
+            //this.geolocator = new Geolocator();
         }
-
         async void FindDinerList()
         {
-            var settings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            //var settings = Windows.Storage.ApplicationData.Current.RoamingSettings;
 
-            if ((bool)settings.Values["LocationConsent"] != true)
-            {
-                return;
-            }
+            //if ((bool)settings.Values["LocationConsent"] != true)
+            //{
+            //    return;
+            //}
 
-            Geolocator geo = new Geolocator();
-            geo.DesiredAccuracyInMeters = 50;
+            //Geolocator geo = new Geolocator();
+            //geo.DesiredAccuracyInMeters = 1;
 
-            try
-            {
-                Geoposition pos = await geo.GetGeopositionAsync(
-                    maximumAge: TimeSpan.FromMinutes(5),
-                    timeout: TimeSpan.FromSeconds(10));
+            //try
+            //{
+            //    Geoposition pos = await geo.GetGeopositionAsync(
+            //        maximumAge: TimeSpan.FromMinutes(5),
+            //        timeout: TimeSpan.FromSeconds(10));
 
-                userPosition.Text = "Your position is " + pos.Coordinate.Point.Position.Latitude.ToString("0.00") + " lat & " + pos.Coordinate.Point.Position.Longitude.ToString("0.00") + " lon.";
-            }
-            catch (Exception ex)
-            {
-                if ((uint)ex.HResult == 0x80004004)
-                {
-                    userPosition.Text = "Location is disabled.";
-                    Frame.Navigate(typeof(MainMenu));
-                }
-                else
-                {
+            //    userPosition.Text = "Your position is " + pos.Coordinate.Point.Position.Latitude.ToString("0.00") + " lat & " + pos.Coordinate.Point.Position.Longitude.ToString("0.00") + " lon.";
+            //    MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync("7 rue guilleminot",  pos.Coordinate.Point, 10);
+            //    if (result.Status == MapLocationFinderStatus.Success)
+            //    {
+            //        foreach (var elem in result.Locations)
+            //        {
+            //            dinerInfo.Add(new ListItem(elem.Address.District.ToString()));
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    if ((uint)ex.HResult == 0x80004004)
+            //    {
+            //        userPosition.Text = "Location is disabled.";
+            //        Frame.Navigate(typeof(MainMenu));
+            //    }
+            //    else
+            //    {
 
-                    // Fill DinerList with Restaurants found on GoogleMaps
-                    dinerInfo.Add(new ListItem("McDonalds"));
-                    dinerInfo.Add(new ListItem("Pizza Hut"));
-                }
-            }
+            //        // Fill DinerList with Restaurants found on GoogleMaps
+            //        dinerInfo.Add(new ListItem("McDonalds"));
+            //        dinerInfo.Add(new ListItem("Pizza Hut"));
+            //    }
+            //}
+            dinerInfo.Add(new ListItem("macdo"));
         }
-
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             groupName = e.Parameter as string;
+            FindDinerList();
+            dinerList.ItemsSource = dinerInfo;
         }
-
-        //private void chooseDiner_Clicked(object sender, RoutedEventArgs e)
-        //{
-        
-        //}
 
         private void dinerList_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageDialog msg = new MessageDialog("wut");
-            dinerList.ItemsSource = dinerInfo;
-
-            dinerInfo.Add(new ListItem("HELLO THERE"));
         }
 
         private void dinerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(DinerMenu), dinerList.SelectedValue);
+            Frame.Navigate(typeof(DinerMenu), dinerList.SelectedItem);
         }
     }
 }
