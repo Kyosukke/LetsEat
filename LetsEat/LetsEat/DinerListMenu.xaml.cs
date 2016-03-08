@@ -39,48 +39,7 @@ namespace LetsEat
             //this.geolocator = new Geolocator();
         }
         async void FindDinerList()
-        {
-            //var settings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-
-            //if ((bool)settings.Values["LocationConsent"] != true)
-            //{
-            //    return;
-            //}
-
-            //Geolocator geo = new Geolocator();
-            //geo.DesiredAccuracyInMeters = 1;
-
-            //try
-            //{
-            //    Geoposition pos = await geo.GetGeopositionAsync(
-            //        maximumAge: TimeSpan.FromMinutes(5),
-            //        timeout: TimeSpan.FromSeconds(10));
-
-            //    userPosition.Text = "Your position is " + pos.Coordinate.Point.Position.Latitude.ToString("0.00") + " lat & " + pos.Coordinate.Point.Position.Longitude.ToString("0.00") + " lon.";
-            //    MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync("7 rue guilleminot",  pos.Coordinate.Point, 10);
-            //    if (result.Status == MapLocationFinderStatus.Success)
-            //    {
-            //        foreach (var elem in result.Locations)
-            //        {
-            //            dinerInfo.Add(new ListItem(elem.Address.District.ToString()));
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    if ((uint)ex.HResult == 0x80004004)
-            //    {
-            //        userPosition.Text = "Location is disabled.";
-            //        Frame.Navigate(typeof(MainMenu));
-            //    }
-            //    else
-            //    {
-
-            //        // Fill DinerList with Restaurants found on GoogleMaps
-            //        dinerInfo.Add(new ListItem("McDonalds"));
-            //        dinerInfo.Add(new ListItem("Pizza Hut"));
-            //    }
-            //}
+        { 
             dinerInfo.Add(new ListItem("macdo"));
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)

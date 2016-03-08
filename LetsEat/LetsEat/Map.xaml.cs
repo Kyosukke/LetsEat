@@ -114,6 +114,7 @@ namespace LetsEat
                 maximumAge: TimeSpan.FromMinutes(5),
                 timeout: TimeSpan.FromSeconds(10));
 
+
             //userPosition.Text = "Your position is " + pos.Coordinate.Point.Position.Latitude.ToString("0.00") + " lat & " + pos.Coordinate.Point.Position.Longitude.ToString("0.00") + " lon.";
             MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync("7 rue guilleminot", pos.Coordinate.Point, 2);
             if (result.Status == MapLocationFinderStatus.Success)
@@ -126,9 +127,34 @@ namespace LetsEat
                 myCircle.Height = 20;
                 myCircle.Width = 20;
                 myCircle.Opacity = 50;
+                Ellipse myCircle2 = new Ellipse();
+                myCircle2.Fill = new SolidColorBrush(Colors.Red);
+                myCircle2.Height = 20;
+                myCircle2.Width = 20;
+                myCircle2.Opacity = 50;
+                myMap.Children.Add(myCircle2);
                 myMap.Children.Add(myCircle);
                 MapControl.SetLocation(myCircle, result.Locations[0].Point);
+                MapControl.SetLocation(myCircle2, pos.Coordinate.Point);
             }
+
+            //BasicGeoposition startLocation = new BasicGeoposition();
+            //startLocation.Latitude = pos.Coordinate.Latitude;
+            //startLocation.Longitude = pos.Coordinate.Longitude;
+            //Geopoint startPoint = new Geopoint(startLocation);
+            //BasicGeoposition endLocation = new BasicGeoposition();
+            //endLocation.Latitude = result.Locations[0].Point.Position.Latitude;
+            //endLocation.Longitude = result.Locations[0].Point.Position.Longitude;
+            //Geopoint endPoint = new Geopoint(endLocation);
+            //// Get the route between the points.
+            //MapRouteFinderResult routeResult =
+            //await MapRouteFinder.GetDrivingRouteAsync(
+            //  startPoint,
+            //  endPoint,
+            //  MapRouteOptimization.Time,
+            //  MapRouteRestrictions.None,
+            //  290);
+
             this.navigationHelper.OnNavigatedTo(e);
         }
 
