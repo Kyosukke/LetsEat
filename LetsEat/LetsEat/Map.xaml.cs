@@ -119,12 +119,13 @@ namespace LetsEat
 
 
             //userPosition.Text = "Your position is " + pos.Coordinate.Point.Position.Latitude.ToString("0.00") + " lat & " + pos.Coordinate.Point.Position.Longitude.ToString("0.00") + " lon.";
-            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync("7 rue guilleminot", pos.Coordinate.Point, 2);
+            MapLocationFinderResult result = await MapLocationFinder.FindLocationsAsync(a.adresse, pos.Coordinate.Point, 2);
             if (result.Status == MapLocationFinderStatus.Success)
             {
                 myMap.Center = result.Locations[0].Point;
                 myMap.ZoomLevel = 16;
 
+                //AJOUT DE POINT
                 Ellipse myCircle = new Ellipse();
                 myCircle.Fill = new SolidColorBrush(Colors.Blue);
                 myCircle.Height = 20;
@@ -135,12 +136,14 @@ namespace LetsEat
                 myCircle2.Height = 20;
                 myCircle2.Width = 20;
                 myCircle2.Opacity = 50;
-                myMap.Children.Add(myCircle2);
-                myMap.Children.Add(myCircle);
                 MapControl.SetLocation(myCircle, result.Locations[0].Point);
+                myMap.Children.Add(myCircle);
                 MapControl.SetLocation(myCircle2, pos.Coordinate.Point);
+                myMap.Children.Add(myCircle2);
+          
             }
 
+            //ITINERAIRE
             //BasicGeoposition startLocation = new BasicGeoposition();
             //startLocation.Latitude = pos.Coordinate.Latitude;
             //startLocation.Longitude = pos.Coordinate.Longitude;

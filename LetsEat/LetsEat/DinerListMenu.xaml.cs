@@ -30,18 +30,28 @@ namespace LetsEat
     {
         ObservableCollection<ListItem> dinerInfo = new ObservableCollection<ListItem>();
         Group group;
+        List<Answer> ans = new List<Answer>();
 
         public DinerListMenu()
         {
             this.InitializeComponent();
 
-           FindDinerList();
-      
+            FindDinerList();
+
             //this.geolocator = new Geolocator();
         }
-        async void FindDinerList()
-        { 
-            dinerInfo.Add(new ListItem("macdo"));
+        void FindDinerList()
+        {
+            Answer a = new Answer();
+
+            a.name = "Au Porte Bonheur";
+            a.adresse = "78 Boulevard de Stalingrad, 94400";
+            a.number = "0146720238";
+            ans.Add(a);
+            foreach (Answer i in ans)
+            {
+                dinerInfo.Add(new ListItem(i.name));
+            }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -56,13 +66,11 @@ namespace LetsEat
 
         private void dinerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Answer a = new Answer();
-
-            a.name = (dinerList.SelectedItem as ListItem).title;
-            a.adresse = "quelque part";
-            a.number = "0987654321";
-
-            Frame.Navigate(typeof(DinerMenu), a);
+            foreach (Answer i in ans)
+            {
+                if (i.name == ((ListItem)dinerList.SelectedValue).title)
+                Frame.Navigate(typeof(DinerMenu), i);
+            }
         }
     }
 }
