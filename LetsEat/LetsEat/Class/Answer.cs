@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace LetsEat.Class
 {
-    class Member
+    class Answer
     {
         public string _id { get; set; }
-        public string id { get; set; }
-        public bool answer { get; set; }
+        public string number { get; set; }
+        public string adresse { get; set; }
+        public string name { get; set; }
     }
 }

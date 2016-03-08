@@ -145,6 +145,28 @@ namespace LetsEat
             return null;
         }
 
+        static public async Task<DeleteMemberRP> MakeCall(string method, DeleteMemberVM obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:3000/");
+                client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    DeleteMemberRP f = JsonConvert.DeserializeObject<DeleteMemberRP>(res);
+
+                    return f;
+                }
+            }
+
+            return null;
+        }
+
         static public async Task<CreateGroupRP> MakeCall(string method, CreateGroupVM obj)
         {
             using (var client = new HttpClient())
@@ -159,6 +181,50 @@ namespace LetsEat
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     CreateGroupRP f = JsonConvert.DeserializeObject<CreateGroupRP>(res);
+
+                    return f;
+                }
+            }
+
+            return null;
+        }
+
+        static public async Task<RestaurantChoiceRP> MakeCall(string method, RestaurantChoiceVM obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:3000/");
+                client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    RestaurantChoiceRP f = JsonConvert.DeserializeObject<RestaurantChoiceRP>(res);
+
+                    return f;
+                }
+            }
+
+            return null;
+        }
+
+        static public async Task<CanRandomRP> MakeCall(string method, CanRandomVM obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:3000/");
+                client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    CanRandomRP f = JsonConvert.DeserializeObject<CanRandomRP>(res);
 
                     return f;
                 }

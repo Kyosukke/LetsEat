@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace LetsEat.Class
 {
-    class GetRestaurantVM
+    class DeleteMemberVM
     {
         public string groupeID { get; set; }
+        public string email { get; set; }
     }
 
-    class GetRestaurantRP
+    class DeleteMemberRP
     {
         public bool success { get; set; }
-        public string _id { get; set; }
-        public string groupeID { get; set; }
-        public int __v { get; set; }
-        public History history { get; set; }
     }
 }

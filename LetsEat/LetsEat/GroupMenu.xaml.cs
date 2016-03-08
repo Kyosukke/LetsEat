@@ -30,9 +30,32 @@ namespace LetsEat
         ObservableCollection<ListItem> UserList = new ObservableCollection<ListItem>();
         ObservableCollection<ListItem> HistoryList = new ObservableCollection<ListItem>();
         MessageDialog dial;
+
+        bool isReady = false;
+
+        Objet objet;
+        Group group;
+
         public GroupMenu()
         {
             this.InitializeComponent();
+        }
+
+        public async void CheckRandom()
+        {
+            CanRandomVM service = new CanRandomVM();
+
+            service.groupeID = group._id;
+            service.numberMembre = UserList.Count();
+
+            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
+
+            if (res.success)
+            {
+                isReady = true;
+                objet = res.objet;
+                searchDiner.Content = "Random !";
+            }
         }
 
         /// <summary>
@@ -42,26 +65,22 @@ namespace LetsEat
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            groupName.Header = e.Parameter as string;
+            group = e.Parameter as Group;
+
+            GlobalData.groupeID = group._id;
+            groupName.Header = group.name;
+            CheckRandom();
         }
 
         private void groupMember_Loaded(object sender, RoutedEventArgs e)
         {
             groupMember.ItemsSource = UserList;
 
-            GroupVM group = new GroupVM();
+            foreach (Member m in group.members)
+            {
 
-            group.email = GlobalData.email;
-
-            //GroupRP res = await ApiCall.MakeCall("myGroups", group);
-
-            //if (res.success)
-            //{
-            //    foreach (Group g in res.groups)
-            //    {
-            //        items.Add(new ListItem(g.name));
-            //    }
-            //}
+                UserList.Add(new ListItem(m.id));
+            }
         }
 
         private async void history_Loaded(object sender, RoutedEventArgs e)
@@ -70,12 +89,12 @@ namespace LetsEat
 
             GetRestaurantVM diner = new GetRestaurantVM();
 
-            diner.groupeID = "test";
+            diner.groupeID = group._id;
             GetRestaurantRP res = await ApiCall.MakeCall("getRestaurant", diner);
 
-            if (res.success && res.history.FirstOrDefault() != null)
+            if (res.success && res.history != null)
             {
-                foreach (Restauran r in res.history.FirstOrDefault().restaurants)
+                foreach (Restauran r in res.history.restaurants)
                 {
                     HistoryList.Add(new ListItem(r.name));
                 }
@@ -96,7 +115,7 @@ namespace LetsEat
                 AddMemberVM service = new AddMemberVM();
 
                 service.email = c.popupBox.Text;
-                service.groupeID = "test";
+                service.groupeID = group._id;
 
                 AddMemberRP res = await ApiCall.MakeCall("addMember", service);
 
@@ -108,16 +127,31 @@ namespace LetsEat
                 }
                 else
                 {
-                    dial = new MessageDialog("Error: User not found.");
+                    dial = new MessageDialog("Error: " + res.message);
                     await dial.ShowAsync();
                 }
                 popup.IsOpen = false;
             };
         }
 
-        private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
+        private async void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(DinerListMenu), groupName.Header);
+            if (isReady)
+            {
+                Random rdm = new Random();
+                int i = rdm.Next();
+
+                i = i % objet.answers.Count();
+
+                string res = objet.answers.ElementAt(i).name;
+                dial = new MessageDialog("The choice is: " + res);
+                await dial.ShowAsync();
+                Frame.Navigate(typeof(DinerMenu), objet.answers.ElementAt(i));
+            }
+            else
+            {
+                Frame.Navigate(typeof(DinerListMenu), group);
+            }
         }
 
         private void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -133,7 +167,15 @@ namespace LetsEat
             if (result.Label == "yes")
             {
                 ListItem item = (ListItem)groupMember.SelectedItem;
-                UserList.Remove(item);
+                DeleteMemberVM service = new DeleteMemberVM();
+
+                service.groupeID = group._id;
+                service.email = item.title;
+
+                DeleteMemberRP res = await ApiCall.MakeCall("deleteMember", service);
+
+                if (res.success)
+                    UserList.Remove(item);
             }
         }
 
