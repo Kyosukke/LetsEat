@@ -28,6 +28,7 @@ namespace LetsEat
     public sealed partial class MainMenu : Page
     {
         ObservableCollection<ListItem> items = new ObservableCollection<ListItem>();
+        List<Group> groups = null;
 
         public MainMenu()
         {
@@ -106,7 +107,8 @@ namespace LetsEat
 
             if (res.success)
             {
-                foreach (Group g in res.groups)
+                groups = res.groups;
+                foreach (Group g in groups)
                 {
                     items.Add(new ListItem(g.name));
                 }
@@ -115,7 +117,7 @@ namespace LetsEat
 
         private void listView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof(GroupMenu), e.ClickedItem);
+            Frame.Navigate(typeof(GroupMenu), groups[0]);
         }
 
         private async void edit_Click(object sender, RoutedEventArgs e)
@@ -127,7 +129,7 @@ namespace LetsEat
             if (username.Text != "" && email.Text != "" && password.Password != "")
             {
                 UserVM user = new UserVM(email.Text, password.Password, username.Text);
-                user._id = GlobalData.id;
+                user.userID = GlobalData.id;
                 UserRP res = await ApiCall.MakeCall("editProfil", user);
 
                 isSuccess = res.success;
@@ -169,10 +171,10 @@ namespace LetsEat
                     {
                         result = new MessageDialog("Your group was created successfully !");
                         await result.ShowAsync();
+                        listView_Loaded(s, args);
                     }
 
                     popup.IsOpen = false;
-                    Frame.Navigate(typeof(GroupMenu), c.popupBox.Text);
                 }
                 else
                 {
@@ -189,17 +191,19 @@ namespace LetsEat
             Frame.Navigate(typeof(GroupMenu));
         }
 
-        private async void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            MessageDialog dial = new MessageDialog("Do you want to delete this user?");
-            dial.Commands.Add(new UICommand("no"));
-            dial.Commands.Add(new UICommand("yes"));
-            var result = await dial.ShowAsync();
-            if (result.Label == "yes")
-            {
-                ListItem item = (ListItem)listView.SelectedItem;
-                items.Remove(item);
-            }
+            Frame.Navigate(typeof(GroupMenu), groups[0]);
+
+            //MessageDialog dial = new MessageDialog("Do you want to delete this user?");
+            //dial.Commands.Add(new UICommand("no"));
+            //dial.Commands.Add(new UICommand("yes"));
+            //var result = await dial.ShowAsync();
+            //if (result.Label == "yes")
+            //{
+            //    ListItem item = (ListItem)listView.SelectedItem;
+            //    items.Remove(item);
+            //}
         }
     }
 }

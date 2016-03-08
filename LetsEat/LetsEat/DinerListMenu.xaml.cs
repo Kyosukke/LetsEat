@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Services.Maps;
 using System.Threading.Tasks;
+using LetsEat.Class;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -28,7 +29,7 @@ namespace LetsEat
     public sealed partial class DinerListMenu : Page
     {
         ObservableCollection<ListItem> dinerInfo = new ObservableCollection<ListItem>();
-        string groupName;
+        Group group;
 
         public DinerListMenu()
         {
@@ -85,7 +86,7 @@ namespace LetsEat
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            groupName = e.Parameter as string;
+            group = e.Parameter as Group;
             FindDinerList();
             dinerList.ItemsSource = dinerInfo;
         }
@@ -96,7 +97,13 @@ namespace LetsEat
 
         private void dinerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(DinerMenu), dinerList.SelectedItem);
+            Answer a = new Answer();
+
+            a.name = (dinerList.SelectedItem as ListItem).title;
+            a.adresse = "quelque part";
+            a.number = "0987654321";
+
+            Frame.Navigate(typeof(DinerMenu), a);
         }
     }
 }

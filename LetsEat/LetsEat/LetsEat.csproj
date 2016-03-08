@@ -82,13 +82,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Class\AddMemberVM.cs" />
+    <Compile Include="Class\Answer.cs" />
     <Compile Include="Class\ApiCall.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\CanRandomVM.cs" />
     <Compile Include="Class\CreateGroupVM.cs" />
+    <Compile Include="Class\DeleteMemberVM.cs" />
     <Compile Include="Class\GetRestaurantVM.cs" />
     <Compile Include="Class\History.cs" />
+    <Compile Include="Class\Objet.cs" />
+    <Compile Include="Class\RestaurantChoiceVM.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />

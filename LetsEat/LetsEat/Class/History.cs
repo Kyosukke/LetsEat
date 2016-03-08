@@ -8,7 +8,6 @@ namespace LetsEat.Class
 {
     class History
     {
-        public string groupeID { get; set; }
         public List<Restauran> restaurants { get; set; }
     }
 }

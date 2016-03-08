@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace LetsEat.Class
 {
-    class GetRestaurantVM
+    class CanRandomVM
     {
         public string groupeID { get; set; }
+        public int numberMembre { get; set; }
     }
 
-    class GetRestaurantRP
+    class CanRandomRP
     {
         public bool success { get; set; }
-        public string _id { get; set; }
-        public string groupeID { get; set; }
-        public int __v { get; set; }
-        public History history { get; set; }
+        public Objet objet { get; set; }
     }
 }

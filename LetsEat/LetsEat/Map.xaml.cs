@@ -21,6 +21,7 @@ using Windows.Services.Maps;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
 using Windows.UI.Xaml.Controls.Maps;
+using LetsEat.Class;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -33,6 +34,7 @@ namespace LetsEat
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        Answer a;
 
         public Map()
         {
@@ -106,7 +108,8 @@ namespace LetsEat
         /// handlers that cannot cancel the navigation request.</param>
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            title.Text = e.Parameter as string;
+            a = e.Parameter as Answer;
+            title.Text = a.name;
             Geolocator geo = new Geolocator();
             geo.DesiredAccuracyInMeters = 1;
 
