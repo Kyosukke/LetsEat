@@ -12,7 +12,7 @@
         <Pivot Title="Lets Eat">
             <PivotItem x:Name="groupName" Header="Groupname" DoubleTapped="groupName_DoubleTapped">
                 <Grid>
-                    <ListView x:Name="groupMember" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="groupMember_Loaded" SelectionChanged="groupMember_SelectionChanged" DoubleTapped="groupMember_DoubleTapped">
+                    <ListView x:Name="groupMember" HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400" Loaded="groupMember_Loaded" DoubleTapped="groupMember_DoubleTapped">
                         <ListView.Resources>
                             <DataTemplate x:Key="ListItem">
                                 <Grid Height="50" Width="400">

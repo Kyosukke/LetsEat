@@ -44,9 +44,51 @@ namespace LetsEat
             restaurantName.Text = a.name;
         }
 
+        private async void CheckRandom()
+        {
+            CanRandomVM service = new CanRandomVM();
+
+            service.groupeID = GlobalData.groupeID;
+            service.numberMembre = GlobalData.groupeNumber;
+
+            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
+
+            if (res.success)
+            {
+                Random rdm = new Random();
+                int i = rdm.Next();
+
+                i = i % res.objet.answers.Count();
+
+                Answer final = res.objet.answers.ElementAt(i);
+                MessageDialog dial = new MessageDialog("The choice is: " + final.name);
+                await dial.ShowAsync();
+                ValidateDiner(final);
+                Frame.Navigate(typeof(DinerMenu), res.objet.answers.ElementAt(i));
+            }
+        }
+
+        private async void ValidateDiner(Answer final)
+        {
+            AddRestaurantVM service = new AddRestaurantVM();
+
+            service.groupeID = GlobalData.groupeID;
+            service.restaurantName = final.name;
+            service.date = DateTime.Now.ToString();
+
+            AddRestaurantRP res = await ApiCall.MakeCall("addRestaurant", service);
+
+            if (res.success)
+            {
+                // Send email
+                MessageDialog dial = new MessageDialog("Choice sent !" + service.date);
+                await dial.ShowAsync();
+            }
+        }
+
         private void call_Clicked(object sender, RoutedEventArgs e)
         {
-            Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI("0123456789", restaurantName.Text);
+            Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI(a.number, a.name);
         }
 
         private async void go_Click(object sender, RoutedEventArgs e)
@@ -65,6 +107,7 @@ namespace LetsEat
             {
                 MessageDialog dial = new MessageDialog("Your choice as been taken.");
                 await dial.ShowAsync();
+                CheckRandom();
             }
 
             Frame.Navigate(typeof(Map), a);

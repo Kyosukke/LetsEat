@@ -31,31 +31,12 @@ namespace LetsEat
         ObservableCollection<ListItem> HistoryList = new ObservableCollection<ListItem>();
         MessageDialog dial;
 
-        bool isReady = false;
-
         Objet objet;
         Group group;
 
         public GroupMenu()
         {
             this.InitializeComponent();
-        }
-
-        public async void CheckRandom()
-        {
-            CanRandomVM service = new CanRandomVM();
-
-            service.groupeID = group._id;
-            service.numberMembre = UserList.Count();
-
-            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
-
-            if (res.success)
-            {
-                isReady = true;
-                objet = res.objet;
-                searchDiner.Content = "Random !";
-            }
         }
 
         /// <summary>
@@ -69,7 +50,6 @@ namespace LetsEat
 
             GlobalData.groupeID = group._id;
             groupName.Header = group.name;
-            CheckRandom();
         }
 
         private void groupMember_Loaded(object sender, RoutedEventArgs e)
@@ -96,7 +76,7 @@ namespace LetsEat
             {
                 foreach (Restauran r in res.history.restaurants)
                 {
-                    HistoryList.Add(new ListItem(r.name));
+                    HistoryList.Add(new ListItem(r.name + " " + r.date));
                 }
             }
         }
@@ -134,28 +114,10 @@ namespace LetsEat
             };
         }
 
-        private async void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
+        private void searchDinerPlace_Clicked(object sender, RoutedEventArgs e)
         {
-            if (isReady)
-            {
-                Random rdm = new Random();
-                int i = rdm.Next();
-
-                i = i % objet.answers.Count();
-
-                string res = objet.answers.ElementAt(i).name;
-                dial = new MessageDialog("The choice is: " + res);
-                await dial.ShowAsync();
-                Frame.Navigate(typeof(DinerMenu), objet.answers.ElementAt(i));
-            }
-            else
-            {
-                Frame.Navigate(typeof(DinerListMenu), group);
-            }
-        }
-
-        private void groupMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+            GlobalData.groupeNumber = UserList.Count();
+            Frame.Navigate(typeof(DinerListMenu), group);
         }
 
         private async void groupName_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

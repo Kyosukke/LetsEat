@@ -12,5 +12,6 @@ namespace LetsEat
         static public string email { get; set; }
         static public string token { get; set; }
         static public string groupeID { get; set; }
+        static public int groupeNumber { get; set; }
     }
 }

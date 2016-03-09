@@ -232,5 +232,27 @@ namespace LetsEat
 
             return null;
         }
+
+        static public async Task<AddRestaurantRP> MakeCall(string method, AddRestaurantVM obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:3000/");
+                client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    AddRestaurantRP f = JsonConvert.DeserializeObject<AddRestaurantRP>(res);
+
+                    return f;
+                }
+            }
+
+            return null;
+        }
     }
 }
