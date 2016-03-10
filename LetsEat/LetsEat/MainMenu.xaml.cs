@@ -202,6 +202,7 @@ namespace LetsEat
                 if (result.Label == "yes")
                 {
                     int i = listView.SelectedIndex;
+                    string name = items[i].title;
                     items.Remove(items[i]);
                 }
             }
