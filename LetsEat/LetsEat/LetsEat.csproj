@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Class\CanRandomVM.cs" />
     <Compile Include="Class\CreateGroupVM.cs" />
+    <Compile Include="Class\DeleteGroupVM.cs" />
     <Compile Include="Class\DeleteMemberVM.cs" />
     <Compile Include="Class\GetRestaurantVM.cs" />
     <Compile Include="Class\History.cs" />

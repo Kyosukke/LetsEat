@@ -254,5 +254,27 @@ namespace LetsEat
 
             return null;
         }
+
+        static public async Task<DeleteGroupRP> MakeCall(string method, DeleteGroupVM obj)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:3000/");
+                client.DefaultRequestHeaders.Add("Authorization", GlobalData.token);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await client.PostAsJsonAsync(method, obj);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    DeleteGroupRP f = JsonConvert.DeserializeObject<DeleteGroupRP>(res);
+
+                    return f;
+                }
+            }
+
+            return null;
+        }
     }
 }

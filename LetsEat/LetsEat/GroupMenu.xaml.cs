@@ -31,7 +31,6 @@ namespace LetsEat
         ObservableCollection<ListItem> HistoryList = new ObservableCollection<ListItem>();
         MessageDialog dial;
 
-        Objet objet;
         Group group;
 
         public GroupMenu()
@@ -58,8 +57,7 @@ namespace LetsEat
 
             foreach (Member m in group.members)
             {
-
-                UserList.Add(new ListItem(m.id));
+                UserList.Add(new ListItem(m.email));
             }
         }
 
@@ -122,6 +120,9 @@ namespace LetsEat
 
         private async void groupName_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
+            if (group.admin != GlobalData.id)
+                return;
+
             MessageDialog dial = new MessageDialog("Do you want to delete this user?");
             dial.Commands.Add(new UICommand("no"));
             dial.Commands.Add(new UICommand("yes"));
@@ -139,11 +140,6 @@ namespace LetsEat
                 if (res.success)
                     UserList.Remove(item);
             }
-        }
-
-        private void groupMember_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-        {
-
         }
     }
 }
