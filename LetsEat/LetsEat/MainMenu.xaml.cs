@@ -180,6 +180,39 @@ namespace LetsEat
             };
         }
 
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (listView.SelectedIndex > -1)
+            {
+                MessageDialog dial = new MessageDialog("Do you want to delete this group?");
+                dial.Commands.Add(new UICommand("no"));
+                dial.Commands.Add(new UICommand("yes"));
+                var result = await dial.ShowAsync();
+                if (result.Label == "yes")
+                {
+                    int i = listView.SelectedIndex;
+                    items.Remove(items[i]);
+                    //ListItem item = (ListItem)listView.SelectedItem;
+                    //DeleteGroupVM service = new DeleteGroupVM();
+
+                    //foreach (Group g in groups)
+                    //{
+                    //    if (g.name == item.title)
+                    //    {
+                    //        service.groupeID = g._id;
+
+                    //        DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
+
+                    //        if (res.success)
+                    //            items.Remove(item);
+
+                    //        break;
+                    //    }
+                    //}
+                }
+            }
+        }
+
         private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             string name = ((ListItem)listView.SelectedItem).title;
@@ -189,32 +222,6 @@ namespace LetsEat
                 if (g.name.Equals(name))
                 Frame.Navigate(typeof(GroupMenu), g);
             }
-
-
-            //MessageDialog dial = new MessageDialog("Do you want to delete this group?");
-            //dial.Commands.Add(new UICommand("no"));
-            //dial.Commands.Add(new UICommand("yes"));
-            //var result = await dial.ShowAsync();
-            //if (result.Label == "yes")
-            //{
-            //    ListItem item = (ListItem)listView.SelectedItem;
-            //    DeleteGroupVM service = new DeleteGroupVM();
-
-            //    foreach (Group g in groups)
-            //    {
-            //        if (g.name == item.title)
-            //        {
-            //            service.groupeID = g._id;
-
-            //            DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
-
-            //            if (res.success)
-            //                items.Remove(item);
-
-            //            break;
-            //        }
-            //    }
-            //}
         }
     }
 }

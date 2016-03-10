@@ -35,12 +35,8 @@ namespace LetsEat
         public DinerListMenu()
         {
             this.InitializeComponent();
-
-            FindDinerList();
-
-            //this.geolocator = new Geolocator();
         }
-        void FindDinerList()
+        void DoMyList()
         {
             Answer a = new Answer();
 
@@ -48,15 +44,26 @@ namespace LetsEat
             a.adresse = "78 Boulevard de Stalingrad, 94400";
             a.number = "0146720238";
             ans.Add(a);
+            a = new Answer();
+            a.name = "Amarante";
+            a.adresse = "89 Boulevard de Stalingrad, 94400 Vitry-sur-Seine";
+            a.number = "0146711917";
+            ans.Add(a);
+            a = new Answer();
+            a.name = "Shiba's France";
+            a.adresse = "95 Rue Jules Lagaisse, 94400";
+            a.number = "0146711053";
+            ans.Add(a);
             foreach (Answer i in ans)
             {
                 dinerInfo.Add(new ListItem(i.name));
             }
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             group = e.Parameter as Group;
-            FindDinerList();
+            DoMyList();
             dinerList.ItemsSource = dinerInfo;
         }
 
