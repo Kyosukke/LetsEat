@@ -117,7 +117,7 @@ namespace LetsEat
 
         private void listView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof(GroupMenu), groups[0]);
+            Frame.Navigate(typeof(GroupMenu), (Group)listView.SelectedItem);
         }
 
         private async void edit_Click(object sender, RoutedEventArgs e)
@@ -193,7 +193,14 @@ namespace LetsEat
 
         private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GroupMenu), groups[0]);
+            string name = ((ListItem)listView.SelectedItem).title;
+
+            foreach (Group g in groups)
+            {
+                if (g.name.Equals(name))
+                Frame.Navigate(typeof(GroupMenu), g);
+            }
+
 
             //MessageDialog dial = new MessageDialog("Do you want to delete this user?");
             //dial.Commands.Add(new UICommand("no"));

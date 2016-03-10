@@ -78,32 +78,74 @@ namespace LetsEat
                 myMap.Children.Add(myCircle);
                 MapControl.SetLocation(myCircle2, pos.Coordinate.Point);
                 myMap.Children.Add(myCircle2);
+        }
+        }
+
+        private async void CheckRandom()
+        {
+            CanRandomVM service = new CanRandomVM();
+
+            service.groupeID = GlobalData.groupeID;
+            service.numberMembre = GlobalData.groupeNumber;
+
+            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
+
+            if (res.success)
+            {
+                Random rdm = new Random();
+                int i = rdm.Next();
+
+                i = i % res.objet.answers.Count();
+
+                Answer final = res.objet.answers.ElementAt(i);
+                MessageDialog dial = new MessageDialog("The choice is: " + final.name);
+                await dial.ShowAsync();
+                ValidateDiner(final);
+                Frame.Navigate(typeof(DinerMenu), res.objet.answers.ElementAt(i));
+            }
+        }
+
+        private async void ValidateDiner(Answer final)
+        {
+            AddRestaurantVM service = new AddRestaurantVM();
+
+            service.groupeID = GlobalData.groupeID;
+            service.restaurantName = final.name;
+            service.date = DateTime.Now.ToString();
+
+            AddRestaurantRP res = await ApiCall.MakeCall("addRestaurant", service);
+
+            if (res.success)
+            {
+                // Send email
+                MessageDialog dial = new MessageDialog("Choice sent !" + service.date);
+                await dial.ShowAsync();
             }
         }
 
         private void call_Clicked(object sender, RoutedEventArgs e)
         {
-            Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI(a.number, restaurantName.Text);
+            Windows.ApplicationModel.Calls.PhoneCallManager.ShowPhoneCallUI(a.number, a.name);
         }
 
         private async void go_Click(object sender, RoutedEventArgs e)
         {
-            //RestaurantChoiceVM service = new RestaurantChoiceVM();
+            RestaurantChoiceVM service = new RestaurantChoiceVM();
 
-            //service.email = GlobalData.email;
-            //service.groupeID = GlobalData.groupeID;
-            //service.restaurantName = a.name;
-            //service.restaurantAdresse = a.adresse;
-            //service.restaurantNumber = a.number;
+            service.email = GlobalData.email;
+            service.groupeID = GlobalData.groupeID;
+            service.restaurantName = a.name;
+            service.restaurantAdresse = a.adresse;
+            service.restaurantNumber = a.number;
 
-            //RestaurantChoiceRP res = await ApiCall.MakeCall("restaurantChoice", service);
+            RestaurantChoiceRP res = await ApiCall.MakeCall("restaurantChoice", service);
 
-            //if (res.success)
-            //{
-            //    MessageDialog dial = new MessageDialog("Your choice as been taken.");
-            //    await dial.ShowAsync();
-            //}
-
+            if (res.success)
+            {
+                MessageDialog dial = new MessageDialog("Your choice as been taken.");
+                await dial.ShowAsync();
+                CheckRandom();
+            }
 
             //ITINERAIRE
             //BasicGeoposition startLocation = new BasicGeoposition();
