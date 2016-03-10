@@ -101,7 +101,6 @@ namespace LetsEat
                 MessageDialog dial = new MessageDialog("The choice is: " + final.name);
                 await dial.ShowAsync();
                 ValidateDiner(final);
-                Frame.Navigate(typeof(DinerMenu), res.objet.answers.ElementAt(i));
             }
         }
 
@@ -118,7 +117,7 @@ namespace LetsEat
             if (res.success)
             {
                 // Send email
-                MessageDialog dial = new MessageDialog("Choice sent !" + service.date);
+                MessageDialog dial = new MessageDialog("Choice sent !");
                 await dial.ShowAsync();
             }
         }
@@ -142,9 +141,14 @@ namespace LetsEat
 
             if (res.success)
             {
-                MessageDialog dial = new MessageDialog("Your choice as been taken.");
+                MessageDialog dial = new MessageDialog("Your choice has been taken.");
                 await dial.ShowAsync();
                 CheckRandom();
+            }
+            else
+            {
+                MessageDialog dial = new MessageDialog("Error: Your choice has already been taken.");
+                await dial.ShowAsync();
             }
 
             //ITINERAIRE

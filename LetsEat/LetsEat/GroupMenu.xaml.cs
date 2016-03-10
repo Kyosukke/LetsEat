@@ -57,7 +57,7 @@ namespace LetsEat
 
             foreach (Member m in group.members)
             {
-                UserList.Add(new ListItem(m.email));
+                UserList.Add(new ListItem(m._id));
             }
         }
 
@@ -118,7 +118,7 @@ namespace LetsEat
             Frame.Navigate(typeof(DinerListMenu), group);
         }
 
-        private async void groupName_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void groupMember_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             if (group.admin != GlobalData.id)
                 return;

@@ -16,7 +16,7 @@
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Grid.ColumnSpan="2" Loaded="listView_Loaded">
                         <ListView.Resources>
                             <DataTemplate x:Key="ListItem">
                                 <Grid Height="50" Width="400">

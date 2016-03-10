@@ -192,24 +192,22 @@ namespace LetsEat
                 {
                     int i = listView.SelectedIndex;
                     string name = items[i].title;
-                    items.Remove(items[i]);
-                    //ListItem item = (ListItem)listView.SelectedItem;
-                    //DeleteGroupVM service = new DeleteGroupVM();
 
-                    //foreach (Group g in groups)
-                    //{
-                    //    if (g.name == item.title)
-                    //    {
-                    //        service.groupeID = g._id;
+                    DeleteGroupVM service = new DeleteGroupVM();
 
-                    //        DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
+                    foreach (Group g in groups)
+                    {
+                        if (g.name == name)
+                        {
+                            service.groupeID = g._id;
 
-                    //        if (res.success)
-                    //            items.Remove(item);
+                            DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
 
-                    //        break;
-                    //    }
-                    //}
+                            if (res.success)
+                                items.Remove(items[i]);
+                            break;
+                        }
+                    }
                 }
             }
         }
