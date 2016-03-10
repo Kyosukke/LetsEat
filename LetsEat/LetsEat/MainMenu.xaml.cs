@@ -17,6 +17,7 @@ using Windows.UI.Popups;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using System.Windows;
+using LetsEat.Class;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -115,11 +116,6 @@ namespace LetsEat
             }
         }
 
-        private void listView_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            Frame.Navigate(typeof(GroupMenu), (Group)listView.SelectedItem);
-        }
-
         private async void edit_Click(object sender, RoutedEventArgs e)
         {
             bool isSuccess = false;
@@ -178,24 +174,17 @@ namespace LetsEat
                 }
                 else
                 {
-                    result = new MessageDialog("Error: Your information couldn't be modified.");
+                    result = new MessageDialog("Error: The group wasn't able to be created.");
                     await result.ShowAsync();
                 }
             };
-        }
-
-        private async void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MessageDialog dial = new MessageDialog("Do you want to delete this user?");
-            await dial.ShowAsync();
-            Frame.Navigate(typeof(GroupMenu));
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (listView.SelectedIndex > -1)
             {
-                MessageDialog dial = new MessageDialog("Do you want to delete this groups?");
+                MessageDialog dial = new MessageDialog("Do you want to delete this group?");
                 dial.Commands.Add(new UICommand("no"));
                 dial.Commands.Add(new UICommand("yes"));
                 var result = await dial.ShowAsync();
@@ -204,18 +193,35 @@ namespace LetsEat
                     int i = listView.SelectedIndex;
                     string name = items[i].title;
                     items.Remove(items[i]);
+                    //ListItem item = (ListItem)listView.SelectedItem;
+                    //DeleteGroupVM service = new DeleteGroupVM();
+
+                    //foreach (Group g in groups)
+                    //{
+                    //    if (g.name == item.title)
+                    //    {
+                    //        service.groupeID = g._id;
+
+                    //        DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
+
+                    //        if (res.success)
+                    //            items.Remove(item);
+
+                    //        break;
+                    //    }
+                    //}
                 }
             }
         }
 
-        private void l_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             string name = ((ListItem)listView.SelectedItem).title;
 
             foreach (Group g in groups)
             {
                 if (g.name.Equals(name))
-                    Frame.Navigate(typeof(GroupMenu), g);
+                Frame.Navigate(typeof(GroupMenu), g);
             }
         }
     }

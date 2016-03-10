@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LetsEat.Class
+{
+    class DeleteGroupVM
+    {
+        public string groupeID { get; set; }
+    }
+
+    class DeleteGroupRP
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+    }
+}
