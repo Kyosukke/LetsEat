@@ -10,13 +10,18 @@
 
     <Grid>
         <Pivot Title="Lets Eat">
-            <PivotItem Header="My Groups">
-                <Grid>
-                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Loaded="listView_Loaded" DoubleTapped="listView_DoubleTapped">
+            <PivotItem Header="My Groups" Margin="10,23,19,-0.667">
+                <Grid Margin="0,10,9.833,-0.167">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Loaded="listView_Loaded" DoubleTapped="listView_DoubleTapped" Grid.ColumnSpan="2" Tapped="listView_Tapped">
                         <ListView.Resources>
                             <DataTemplate x:Key="ListItem">
                                 <Grid Height="50" Width="400">
-                                    <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap"/>
+                                    <TextBlock Name="l" Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap" Tapped="TextBlock_Tapped" DoubleTapped="l_DoubleTapped"/>
+                                    <Button Content="x" HorizontalAlignment="Right"  Click="Button_Click" Margin="0,0,50,0"></Button>
                                 </Grid>
                             </DataTemplate>
                         </ListView.Resources>
@@ -24,7 +29,7 @@
                             <StaticResource ResourceKey="ListItem"/>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button x:Name="addGroup" Content="Add Group" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="addGroup_Clicked"/>
+                    <Button x:Name="addGroup" Content="Add Group" Height="80" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Click="addGroup_Clicked" Grid.ColumnSpan="2"/>
                 </Grid>
             </PivotItem>
             <PivotItem Header="My Profile">

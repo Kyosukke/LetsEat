@@ -191,26 +191,31 @@ namespace LetsEat
             Frame.Navigate(typeof(GroupMenu));
         }
 
-        private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (listView.SelectedIndex > -1)
+            {
+                MessageDialog dial = new MessageDialog("Do you want to delete this groups?");
+                dial.Commands.Add(new UICommand("no"));
+                dial.Commands.Add(new UICommand("yes"));
+                var result = await dial.ShowAsync();
+                if (result.Label == "yes")
+                {
+                    int i = listView.SelectedIndex;
+                    items.Remove(items[i]);
+                }
+            }
+        }
+
+        private void l_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             string name = ((ListItem)listView.SelectedItem).title;
 
             foreach (Group g in groups)
             {
                 if (g.name.Equals(name))
-                Frame.Navigate(typeof(GroupMenu), g);
+                    Frame.Navigate(typeof(GroupMenu), g);
             }
-
-
-            //MessageDialog dial = new MessageDialog("Do you want to delete this user?");
-            //dial.Commands.Add(new UICommand("no"));
-            //dial.Commands.Add(new UICommand("yes"));
-            //var result = await dial.ShowAsync();
-            //if (result.Label == "yes")
-            //{
-            //    ListItem item = (ListItem)listView.SelectedItem;
-            //    items.Remove(item);
-            //}
         }
     }
 }
