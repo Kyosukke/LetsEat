@@ -214,7 +214,7 @@ namespace LetsEat
             }
         }
 
-        private void listView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private void l_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             string name = ((ListItem)listView.SelectedItem).title;
 

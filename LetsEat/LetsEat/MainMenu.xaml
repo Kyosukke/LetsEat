@@ -16,11 +16,11 @@
                         <ColumnDefinition Width="0*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Loaded="listView_Loaded" DoubleTapped="listView_DoubleTapped" Grid.ColumnSpan="2" Tapped="listView_Tapped">
+                    <ListView x:Name="listView" HorizontalAlignment="Left" Height="428" VerticalAlignment="Top" Grid.ColumnSpan="2">
                         <ListView.Resources>
                             <DataTemplate x:Key="ListItem">
                                 <Grid Height="50" Width="400">
-                                    <TextBlock Name="l" Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap" Tapped="TextBlock_Tapped" DoubleTapped="l_DoubleTapped"/>
+                                    <TextBlock Text="{Binding title}" FontSize="34" HorizontalAlignment="Left"  TextWrapping="Wrap" DoubleTapped="l_DoubleTapped"/>
                                     <Button Content="x" HorizontalAlignment="Right"  Click="Button_Click" Margin="0,0,50,0"></Button>
                                 </Grid>
                             </DataTemplate>
