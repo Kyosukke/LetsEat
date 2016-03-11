@@ -10,7 +10,7 @@
 
     <Grid>
         <Pivot Title="Lets Eat">
-            <PivotItem Header="My Groups" Margin="10,23,19,-0.667">
+            <PivotItem Header="My Groups" Margin="10,23,10,-0.667">
                 <Grid Margin="0,10,9.833,-0.167">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0*"/>
@@ -44,8 +44,8 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Popup Visibility="Visible" x:Name="popup" VerticalAlignment="Center">
+        <!--<Popup Visibility="Visible" x:Name="popup" VerticalAlignment="Center" Margin="0,320,107,320">
             <local:CustomPopupControl />
-        </Popup>
+        </Popup>-->
     </Grid>
 </Page>
