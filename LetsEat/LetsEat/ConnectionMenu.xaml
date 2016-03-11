@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Style="{StaticResource DarkBackground}">
         <Pivot Title="Lets Eat">
             <PivotItem Header="Log In">
                 <Grid HorizontalAlignment="Left" Height="528" VerticalAlignment="Top" Width="400">
