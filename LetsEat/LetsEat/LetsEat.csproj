@@ -127,6 +127,9 @@
     </Compile>
     <Compile Include="Class\MemberVM.cs" />
     <Compile Include="Class\ProfilVM.cs" />
+    <Compile Include="PopUP.xaml.cs">
+      <DependentUpon>PopUP.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Class\UserVM.cs" />
@@ -174,6 +177,10 @@
     <Page Include="ConnectionMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopUP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

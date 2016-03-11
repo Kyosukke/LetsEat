@@ -144,22 +144,28 @@ namespace LetsEat
 
         private void addGroup_Clicked(object sender, RoutedEventArgs e)
         {
-            CustomPopupControl c = new CustomPopupControl();
-            c.linkParent(popup);
+            Popup popup = new Popup();
+            popup.Height = 300;
+            popup.Width = 400;
+            popup.VerticalOffset = 100;
+            PopUP control = new PopUP();
+            popup.Child = control;
             popup.IsOpen = true;
+            popup.HorizontalAlignment = HorizontalAlignment.Center;
+            popup.VerticalAlignment = VerticalAlignment.Center;
+            Button btnOK = (global::Windows.UI.Xaml.Controls.Button)control.FindName("btnOK");
+            TextBox txt_Remarks = (global::Windows.UI.Xaml.Controls.TextBox)control.FindName("tbx");
             MessageDialog result;
-
-            c.popupText.Text = "Choose a group name:";
-            c.popupBox.Visibility = Visibility.Visible;
-
-            c.popupButton.Click += async (s, args) =>
+            btnOK.Click += async (s, args) =>
             {
+               popup.IsOpen = false;
+               string t = txt_Remarks.Text;
                 CreateGroupVM group = new CreateGroupVM();
 
-                if (c.popupBox.Text != "")
+               if (t != "")
                 {
                     group.email = GlobalData.email;
-                    group.name = c.popupBox.Text;
+                   group.name = t;
 
                     CreateGroupRP res = await ApiCall.MakeCall<CreateGroupVM, CreateGroupRP>("createGroup", group);
 
@@ -169,7 +175,6 @@ namespace LetsEat
                         await result.ShowAsync();
                         listView_Loaded(s, args);
                     }
-
                     popup.IsOpen = false;
                 }
                 else
@@ -179,6 +184,7 @@ namespace LetsEat
                 }
             };
         }
+
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -211,6 +217,8 @@ namespace LetsEat
                 }
             }
         }
+
+
 
         private void l_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {

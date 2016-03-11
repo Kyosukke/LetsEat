@@ -68,7 +68,7 @@ namespace LetsEat
             GetRestaurantVM diner = new GetRestaurantVM();
 
             diner.groupeID = group._id;
-            GetRestaurantRP res = await ApiCall.MakeCall<GetRestaurantVM, GetRestaurantRP>("getRestaurant", diner);
+            GetRestaurantRP res = await ApiCall.MakeCall("getRestaurant", diner);
 
             if (res.success && res.history != null)
             {
@@ -95,7 +95,7 @@ namespace LetsEat
                 service.email = c.popupBox.Text;
                 service.groupeID = group._id;
 
-                AddMemberRP res = await ApiCall.MakeCall<AddMemberVM, AddMemberRP>("addMember", service);
+                AddMemberRP res = await ApiCall.MakeCall("addMember", service);
 
                 if (res.success)
                 {
@@ -118,7 +118,7 @@ namespace LetsEat
             Frame.Navigate(typeof(DinerListMenu), group);
         }
 
-        private async void groupMember_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        private async void groupName_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             if (group.admin != GlobalData.id)
                 return;
@@ -135,7 +135,7 @@ namespace LetsEat
                 service.groupeID = group._id;
                 service.email = item.title;
 
-                DeleteMemberRP res = await ApiCall.MakeCall<DeleteMemberVM, DeleteMemberRP>("deleteMember", service);
+                DeleteMemberRP res = await ApiCall.MakeCall("deleteMember", service);
 
                 if (res.success)
                     UserList.Remove(item);
