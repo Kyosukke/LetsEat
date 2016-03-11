@@ -88,7 +88,7 @@ namespace LetsEat
             service.groupeID = GlobalData.groupeID;
             service.numberMembre = GlobalData.groupeNumber;
 
-            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
+            CanRandomRP res = await ApiCall.MakeCall<CanRandomVM, CanRandomRP>("canRandom", service);
 
             if (res.success)
             {
@@ -101,7 +101,6 @@ namespace LetsEat
                 MessageDialog dial = new MessageDialog("The choice is: " + final.name);
                 await dial.ShowAsync();
                 ValidateDiner(final);
-                Frame.Navigate(typeof(DinerMenu), res.objet.answers.ElementAt(i));
             }
         }
 
@@ -113,12 +112,12 @@ namespace LetsEat
             service.restaurantName = final.name;
             service.date = DateTime.Now.ToString();
 
-            AddRestaurantRP res = await ApiCall.MakeCall("addRestaurant", service);
+            AddRestaurantRP res = await ApiCall.MakeCall<AddRestaurantVM, AddRestaurantRP>("addRestaurant", service);
 
             if (res.success)
             {
                 // Send email
-                MessageDialog dial = new MessageDialog("Choice sent !" + service.date);
+                MessageDialog dial = new MessageDialog("Choice sent !");
                 await dial.ShowAsync();
             }
         }
@@ -138,13 +137,18 @@ namespace LetsEat
             service.restaurantAdresse = a.adresse;
             service.restaurantNumber = a.number;
 
-            RestaurantChoiceRP res = await ApiCall.MakeCall("restaurantChoice", service);
+            RestaurantChoiceRP res = await ApiCall.MakeCall<RestaurantChoiceVM, RestaurantChoiceRP>("restaurantChoice", service);
 
             if (res.success)
             {
-                MessageDialog dial = new MessageDialog("Your choice as been taken.");
+                MessageDialog dial = new MessageDialog("Your choice has been taken.");
                 await dial.ShowAsync();
                 CheckRandom();
+            }
+            else
+            {
+                MessageDialog dial = new MessageDialog("Error: Your choice has already been taken.");
+                await dial.ShowAsync();
             }
 
             //ITINERAIRE

@@ -86,7 +86,7 @@ namespace LetsEat
 
             user.email = GlobalData.email;
 
-            ProfilRP res = await ApiCall.MakeCall("profil", user);
+            ProfilRP res = await ApiCall.MakeCall<ProfilVM, ProfilRP>("profil", user);
 
             if (res.success)
             {
@@ -104,7 +104,7 @@ namespace LetsEat
 
             group.email = GlobalData.email;
 
-            GroupRP res = await ApiCall.MakeCall("myGroups", group);
+            GroupRP res = await ApiCall.MakeCall<GroupVM, GroupRP>("myGroups", group);
 
             if (res.success)
             {
@@ -157,32 +157,32 @@ namespace LetsEat
             TextBox txt_Remarks = (global::Windows.UI.Xaml.Controls.TextBox)control.FindName("tbx");
             MessageDialog result;
             btnOK.Click += async (s, args) =>
-           {
+            {
                popup.IsOpen = false;
                string t = txt_Remarks.Text;
-               CreateGroupVM group = new CreateGroupVM();
+                CreateGroupVM group = new CreateGroupVM();
 
                if (t != "")
-               {
-                   group.email = GlobalData.email;
+                {
+                    group.email = GlobalData.email;
                    group.name = t;
 
-                   CreateGroupRP res = await ApiCall.MakeCall("createGroup", group);
+                    CreateGroupRP res = await ApiCall.MakeCall<CreateGroupVM, CreateGroupRP>("createGroup", group);
 
-                   if (res.success)
-                   {
-                       result = new MessageDialog("Your group was created successfully !");
-                       await result.ShowAsync();
-                       listView_Loaded(s, args);
-                   }
-                   popup.IsOpen = false;
-               }
-               else
-               {
-                   result = new MessageDialog("Error: The group wasn't able to be created.");
-                   await result.ShowAsync();
-               }
-           };
+                    if (res.success)
+                    {
+                        result = new MessageDialog("Your group was created successfully !");
+                        await result.ShowAsync();
+                        listView_Loaded(s, args);
+                    }
+                    popup.IsOpen = false;
+                }
+                else
+                {
+                    result = new MessageDialog("Error: The group wasn't able to be created.");
+                    await result.ShowAsync();
+                }
+            };
         }
 
 
@@ -198,24 +198,22 @@ namespace LetsEat
                 {
                     int i = listView.SelectedIndex;
                     string name = items[i].title;
-                    items.Remove(items[i]);
-                    //ListItem item = (ListItem)listView.SelectedItem;
-                    //DeleteGroupVM service = new DeleteGroupVM();
 
-                    //foreach (Group g in groups)
-                    //{
-                    //    if (g.name == item.title)
-                    //    {
-                    //        service.groupeID = g._id;
+                    DeleteGroupVM service = new DeleteGroupVM();
 
-                    //        DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
+                    foreach (Group g in groups)
+                    {
+                        if (g.name == name)
+                        {
+                            service.groupeID = g._id;
 
-                    //        if (res.success)
-                    //            items.Remove(item);
+                            DeleteGroupRP res = await ApiCall.MakeCall<DeleteGroupVM, DeleteGroupRP>("deleteGroup", service);
 
-                    //        break;
-                    //    }
-                    //}
+                            if (res.success)
+                                items.Remove(items[i]);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -229,7 +227,7 @@ namespace LetsEat
             foreach (Group g in groups)
             {
                 if (g.name.Equals(name))
-                    Frame.Navigate(typeof(GroupMenu), g);
+                Frame.Navigate(typeof(GroupMenu), g);
             }
         }
     }
