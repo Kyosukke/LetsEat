@@ -86,7 +86,7 @@ namespace LetsEat
 
             user.email = GlobalData.email;
 
-            ProfilRP res = await ApiCall.MakeCall("profil", user);
+            ProfilRP res = await ApiCall.MakeCall<ProfilVM, ProfilRP>("profil", user);
 
             if (res.success)
             {
@@ -104,7 +104,7 @@ namespace LetsEat
 
             group.email = GlobalData.email;
 
-            GroupRP res = await ApiCall.MakeCall("myGroups", group);
+            GroupRP res = await ApiCall.MakeCall<GroupVM, GroupRP>("myGroups", group);
 
             if (res.success)
             {
@@ -161,7 +161,7 @@ namespace LetsEat
                     group.email = GlobalData.email;
                     group.name = c.popupBox.Text;
 
-                    CreateGroupRP res = await ApiCall.MakeCall("createGroup", group);
+                    CreateGroupRP res = await ApiCall.MakeCall<CreateGroupVM, CreateGroupRP>("createGroup", group);
 
                     if (res.success)
                     {
@@ -201,7 +201,7 @@ namespace LetsEat
                         {
                             service.groupeID = g._id;
 
-                            DeleteGroupRP res = await ApiCall.MakeCall("deleteGroup", service);
+                            DeleteGroupRP res = await ApiCall.MakeCall<DeleteGroupVM, DeleteGroupRP>("deleteGroup", service);
 
                             if (res.success)
                                 items.Remove(items[i]);

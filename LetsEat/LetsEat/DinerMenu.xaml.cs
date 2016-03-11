@@ -88,7 +88,7 @@ namespace LetsEat
             service.groupeID = GlobalData.groupeID;
             service.numberMembre = GlobalData.groupeNumber;
 
-            CanRandomRP res = await ApiCall.MakeCall("canRandom", service);
+            CanRandomRP res = await ApiCall.MakeCall<CanRandomVM, CanRandomRP>("canRandom", service);
 
             if (res.success)
             {
@@ -112,7 +112,7 @@ namespace LetsEat
             service.restaurantName = final.name;
             service.date = DateTime.Now.ToString();
 
-            AddRestaurantRP res = await ApiCall.MakeCall("addRestaurant", service);
+            AddRestaurantRP res = await ApiCall.MakeCall<AddRestaurantVM, AddRestaurantRP>("addRestaurant", service);
 
             if (res.success)
             {
@@ -137,7 +137,7 @@ namespace LetsEat
             service.restaurantAdresse = a.adresse;
             service.restaurantNumber = a.number;
 
-            RestaurantChoiceRP res = await ApiCall.MakeCall("restaurantChoice", service);
+            RestaurantChoiceRP res = await ApiCall.MakeCall<RestaurantChoiceVM, RestaurantChoiceRP>("restaurantChoice", service);
 
             if (res.success)
             {
